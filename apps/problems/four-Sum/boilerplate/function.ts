@@ -1,2 +1,3 @@
-function sum(num1 : int,num2 : int) : int { 
- start writing from here}
+function sum(num1 : number,num2 : number) : number { 
+ // start writing from here 
+}

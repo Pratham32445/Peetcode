@@ -1,3 +1,5 @@
+import { mappingToTs } from "./typeMapping";
+
 export class BoilerPlateParser {
   problemName: string = "";
   functionName: string = "";
@@ -21,8 +23,7 @@ export class BoilerPlateParser {
         if (currentSection == "Input") {
           const field = this.extractField(line);
           if (field) this.Inputs.push(field);
-        }
-        else if (currentSection == "Output") {
+        } else if (currentSection == "Output") {
           const field = this.extractField(line);
           console.log(field);
           if (field) this.Outputs.push(field);
@@ -47,15 +48,17 @@ export class BoilerPlateParser {
       (input) => `${input.type} ${input.name}`
     ).join(",");
     return `${this.Outputs[0].type} ${this.functionName}(${inputs}) {
-      // write From Here \n
+      // write From Here 
     }`;
   }
   generateJs() {
     const inputs = this.Inputs.map((input) => `${input.name}`).join(",");
-    return `function ${this.functionName}(${inputs}) { \n start writing code here}`;
+    return `function ${this.functionName}(${inputs}) { \n // start writing code here \n}`;
   }
   generateTs() {
-    const inputs = this.Inputs.map((input) => `${input.name} : ${input.type}`).join(",");
-    return `function ${this.functionName}(${inputs}) : ${this.Outputs[0].type} { \n start writing from here}` 
+    const inputs = this.Inputs.map(
+      (input) => `${input.name} : ${mappingToTs(input.type)}`
+    ).join(",");
+    return `function ${this.functionName}(${inputs}) : ${mappingToTs(this.Outputs[0].type)} { \n // start writing from here \n}`;
   }
 }

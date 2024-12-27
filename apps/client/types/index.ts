@@ -20,3 +20,10 @@ export const Problem = z.object({
     .min(1, "Atleast one topics is required")
     .nonempty("topics cannot be empty"),
 });
+
+
+export const submissionInput = z.object({
+  problemId : z.string().min(1,"Please provide the Id for the submission"),
+  languageId : z.string().min(1,"Please provide the LanguageId"),
+  code : z.string().min(1,"Please provide the code")
+})

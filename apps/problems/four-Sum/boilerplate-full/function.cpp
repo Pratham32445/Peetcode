@@ -3,7 +3,7 @@
   #include <string>
   using namespace std;
 
-  // ## CODE_HERE ##
+   ## CODE_HERE ##
   
   int main() {
       // Declare input variables

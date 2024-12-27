@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@repo/db": "workspace:*",
+    "axios": "^1.7.9",
     "ioredis": "^5.4.2",
     "next": "15.1.2",
     "next-auth": "^4.24.11",
