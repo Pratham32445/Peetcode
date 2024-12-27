@@ -22,6 +22,7 @@ model User {
   profile        Profile?         @relation(fields: [profileId], references: [Id])
   role           UserRole         @default(USER)
   UserOnJunction UserOnJunction[]
+  submissions    Submission[]
 }
 
 model DailyProblems {
@@ -111,6 +112,7 @@ model Submission {
   userId     String
   code       String
   questionId String
+  user       User             @relation(fields: [userId], references: [Id])
   question   Question         @relation(fields: [questionId], references: [Id])
   status     SubmissionStatus @default(PENDING)
   time       DateTime         @default(now())

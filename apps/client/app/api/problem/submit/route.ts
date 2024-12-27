@@ -39,7 +39,6 @@ export const POST = async (req: NextRequest) => {
       "## CODE_HERE ##",
       body.code
     );
-    console.log(problem);
     const response = await axios.post(
       `${JUDGE0_URI}/submissions/batch?base64_encoded=false`,
       {
@@ -48,13 +47,16 @@ export const POST = async (req: NextRequest) => {
           source_code: problem.fullBoilerPlate,
           stdin: input,
           expected_output: problem.outputs[index],
-          callback_url:
-            "https://cd0f-2405-201-3002-151-6579-4c75-8242-dca4.ngrok-free.app/api/callback-url",
         })),
       }
     );
+    console.log(response);
     return NextResponse.json({ message: "submission send" }, { status: 201 });
   } catch (error) {
     console.log(error);
+    return NextResponse.json(
+      { message: "some error ocurred" },
+      { status: 500 }
+    );
   }
 };
