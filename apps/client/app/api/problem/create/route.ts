@@ -25,6 +25,7 @@ export const POST = async (req: NextRequest) => {
     if (problem) {
       const config = {
         Id: problem.Id,
+        title: problem.title,
         structure: body.structure,
         testcases: body.testcases,
         solution: body.solution,

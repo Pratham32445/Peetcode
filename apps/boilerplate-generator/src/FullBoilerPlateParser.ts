@@ -23,7 +23,6 @@ export class FullBoilerPlateParser {
           if (field) this.Inputs.push(field);
         } else if (currentSection == "Output") {
           const field = this.extractField(line);
-          console.log(field);
           if (field) this.Outputs.push(field);
         }
       }
@@ -41,8 +40,61 @@ export class FullBoilerPlateParser {
     const match = line.match(/Field: (\w+(?:<\w+>)?) (\w+)$/);
     return match ? { type: match[1], name: match[2] } : null;
   }
-  generateCppCode() : string {
-    const inputs = this.Inputs.map((Input) => `${Input.type} ${Input.name}`).join(",");
-    const inputRead
+  generateCpp(): string {
+    // Declare input variables with correct types
+    const inputsDeclaration = this.Inputs.map(
+      (field) => `    ${field.type} ${field.name};`
+    ).join("\n");
+
+    // Generate input reading logic for each field
+    const inputReads = this.Inputs.map((field) => {
+      if (field.type.startsWith("list<")) {
+        const elementType = field.type.match(/list<(\w+)>/)?.[1] || "int";
+        return `
+      int size_${field.name};
+      cout << "Enter size of ${field.name}: ";
+      cin >> size_${field.name};
+      ${field.type} ${field.name}(size_${field.name});
+      cout << "Enter elements of ${field.name}: ";
+      for (int i = 0; i < size_${field.name}; ++i) {
+          cin >> ${field.name}[i];
+      }
+        `.trim();
+      } else {
+        return `cin >> ${field.name};`.trim();
+      }
+    }).join("\n\n");
+
+    // Determine output type
+    const outputType = this.Outputs[0]?.type || "void";
+    const functionCall = `    ${outputType} result = ${this.functionName}(${this.Inputs.map((input) => input.name).join(", ")});`;
+
+    // Output result to console
+    const outputWrite = `cout << "Result: " << result << endl;`;
+
+    return `
+  #include <iostream>
+  #include <vector>
+  #include <string>
+  using namespace std;
+
+  // ## CODE_HERE ##
+  
+  int main() {
+      // Declare input variables
+  ${inputsDeclaration}
+  
+      // Read inputs
+  ${inputReads}
+  
+      // Call the function
+  ${functionCall}
+  
+      // Output the result
+  ${outputWrite}
+  
+      return 0;
+  }
+    `.trim();
   }
 }
