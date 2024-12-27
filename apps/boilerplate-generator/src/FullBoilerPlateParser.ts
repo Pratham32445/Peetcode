@@ -70,7 +70,7 @@ export class FullBoilerPlateParser {
     const functionCall = `    ${outputType} result = ${this.functionName}(${this.Inputs.map((input) => input.name).join(", ")});`;
 
     // Output result to console
-    const outputWrite = `cout << "Result: " << result << endl;`;
+    const outputWrite = `cout << result << endl;`;
 
     return `
   #include <iostream>

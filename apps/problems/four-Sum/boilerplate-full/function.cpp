@@ -19,7 +19,7 @@ cin >> num2;
       int result = sum(num1, num2);
   
       // Output the result
-  cout << "Result: " << result << endl;
+  cout << result << endl;
   
       return 0;
   }
