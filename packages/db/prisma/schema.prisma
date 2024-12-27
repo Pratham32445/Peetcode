@@ -14,12 +14,14 @@ datasource db {
 }
 
 model User {
-  Id        String  @id @default(uuid())
-  userId    String?
-  profileId String?
-  email     String
-  password  String?
-  profile   Profile? @relation(fields: [profileId], references: [Id])
+  Id             String           @id @default(uuid())
+  userId         String?
+  profileId      String?
+  email          String
+  password       String?
+  profile        Profile?         @relation(fields: [profileId], references: [Id])
+  role           UserRole         @default(USER)
+  UserOnJunction UserOnJunction[]
 }
 
 model DailyProblems {
@@ -48,7 +50,6 @@ model Profile {
   socialLinkId String
   socialLinks  SocialLinks @relation(fields: [socialLinkId], references: [Id])
   points       String[]
-  question     Question[]
   avatar       String?
 }
 
@@ -62,7 +63,7 @@ model SocialLinks {
 }
 
 model Question {
-  Id                  String            @id @default(cuid())
+  Id                  String             @id @default(cuid())
   title               String
   desc                String
   difficulty          Difficulty
@@ -70,14 +71,13 @@ model Question {
   constraints         String[]
   topics              String[]
   companies           String[]
-  Profile             Profile?          @relation(fields: [profileId], references: [Id])
-  profileId           String?
   acceptancerate      String?
-  likes               Int               @default(0)
-  dislikes            Int               @default(0)
-  problemdiscussionId String
-  discussion          ProblemDiscussion @relation(fields: [problemdiscussionId], references: [Id])
-  Editorial           String[]
+  likes               Int                @default(0)
+  dislikes            Int                @default(0)
+  problemdiscussionId String?
+  discussion          ProblemDiscussion? @relation(fields: [problemdiscussionId], references: [Id])
+  Submissions         Submission[]
+  UserOnJunction      UserOnJunction[]
 }
 
 model ProblemDiscussion {
@@ -98,6 +98,30 @@ model Discussion {
   type                DiscussionType     @default(QUESTION)
 }
 
+model UserOnJunction {
+  Id         String   @id @default(uuid())
+  user       User     @relation(fields: [userId], references: [Id])
+  userId     String
+  question   Question @relation(fields: [questionId], references: [Id])
+  questionId String
+}
+
+model Submission {
+  Id         String           @id @default(uuid())
+  userId     String
+  code       String
+  questionId String
+  question   Question         @relation(fields: [questionId], references: [Id])
+  status     SubmissionStatus @default(PENDING)
+  time       DateTime         @default(now())
+}
+
+enum SubmissionStatus {
+  PENDING
+  ACCEPTED
+  TLE
+}
+
 enum DiscussionType {
   FEEDBACK
   QUESTION
@@ -113,4 +137,9 @@ enum Difficulty {
 enum GenderType {
   MALE
   FEMALE
+}
+
+enum UserRole {
+  USER
+  ADMIN
 }
