@@ -1,4 +1,4 @@
-import { Problem } from "@/types";
+import { Problem } from "@/types/zod";
 import client from "@repo/db/client";
 import { NextRequest, NextResponse } from "next/server";
 import Redis from "ioredis";

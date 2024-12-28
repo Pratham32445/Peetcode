@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { authOptions } from "../../auth/[...nextauth]/options";
-import { submissionInput } from "@/types";
+import { submissionInput } from "@/types/zod";
 import client from "@repo/db/client";
 import { getProblem } from "@/lib/problem";
 import axios from "axios";
