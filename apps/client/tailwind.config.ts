@@ -17,6 +17,7 @@ export default {
         darkBg: "#09090B",
         lightBg: "#1A1A1A",
 		bgSucess : "rgb(63 202 125)",
+		hoverColor : "#262626",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {
