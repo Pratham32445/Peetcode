@@ -12,7 +12,9 @@ app.use(cors());
 app.put("/api/submission-callback", (req: Request, res: Response) => {
   try {
     console.log(req.body);
-    return res.status(201);
+    return res.status(201).json({
+        message : "send"
+    })
   } catch (error) {
     console.log(error);
   }

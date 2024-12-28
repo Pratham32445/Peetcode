@@ -6,16 +6,24 @@ import client from "@repo/db/client";
 import { getProblem } from "@/lib/problem";
 import axios from "axios";
 
-const JUDGE0_URI = "http://13.201.83.116:2358";
+const JUDGE0_URI = "http://13.203.158.255:2358";
 
 export const POST = async (req: NextRequest) => {
   try {
-    // const session = await getServerSession(authOptions);
-    // if (!session?.user)
-    //   return NextResponse.json(
-    //     { message: "You must be logged in to submit the problem" },
-    //     { status: 401 }
-    //   );
+    const session = await getServerSession(authOptions);
+    if (!session?.user)
+      return NextResponse.json(
+        { message: "You must be logged in to submit the problem" },
+        { status: 401 }
+      );
+    const user = await client.user.findFirst({
+      where: { email: session.user.email! },
+    });
+    if (!user)
+      return NextResponse.json(
+        { message: "You must be logged in to submit the problem" },
+        { status: 401 }
+      );
     const body = await req.json();
     const submissionInputres = submissionInput.safeParse(body);
     if (submissionInputres.error)
@@ -47,10 +55,19 @@ export const POST = async (req: NextRequest) => {
           source_code: problem.fullBoilerPlate,
           stdin: input,
           expected_output: problem.outputs[index],
+          callback_url:
+            "https://0ff1-2405-201-3002-151-6579-4c75-8242-dca4.ngrok-free.app/api/submission-callback",
         })),
       }
     );
-    console.log(response);
+    const submission = await client.submission.create({
+      data: {
+        userId: user.Id,
+        code : submissionInputres.data.code,
+        questionId : submissionInputres.data.problemId,
+        status : "PENDING",
+      },
+    });
     return NextResponse.json({ message: "submission send" }, { status: 201 });
   } catch (error) {
     console.log(error);
