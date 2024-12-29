@@ -25,7 +25,6 @@ const QuestionTestcase = ({
         ))}
       </div>
       <div>
-        
       </div>
     </div>
   );

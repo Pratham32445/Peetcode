@@ -6,7 +6,7 @@ import client from "@repo/db/client";
 import { getProblem } from "@/lib/problem";
 import axios from "axios";
 
-const JUDGE0_URI = "http://13.203.158.255:2358";
+const JUDGE0_URI = "http://3.110.223.52:2358";
 
 export const POST = async (req: NextRequest) => {
   try {

@@ -11,7 +11,6 @@ import QuestionTestcase from "@/components/QuestionTestcase";
 
 const Question = async ({ questionId }: { questionId: string }) => {
   const {boilerPlates,InputsTestCase,OutputsTestCase} = await getProblemCodeAndTest(questionId);
-  console.log(InputsTestCase,OutputsTestCase);
   return (
     <div className="w-full h-full flex">
       <ResizablePanelGroup direction="horizontal" className="flex-grow h-full">

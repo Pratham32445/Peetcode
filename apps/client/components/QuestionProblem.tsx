@@ -2,6 +2,7 @@ import { Problem } from "@/types";
 import React from "react";
 import ReactMarkDown from "react-markdown";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import LiveCount from "./LiveCount";
 
 const Difficulty = {
   MEDIUM: "#FFA116",
@@ -77,6 +78,7 @@ const QuestionProblem = ({ problem }: { problem: Problem }) => {
             <div>Acceptance Rate : {"100%"}</div>
           </div>
         </div>
+        <LiveCount Id={problem.Id}/>
       </ScrollArea>
     </div>
   );
