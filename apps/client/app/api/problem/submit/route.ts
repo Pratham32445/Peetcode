@@ -56,18 +56,19 @@ export const POST = async (req: NextRequest) => {
           stdin: input,
           expected_output: problem.outputs[index],
           callback_url:
-            "https://0ff1-2405-201-3002-151-6579-4c75-8242-dca4.ngrok-free.app/api/submission-callback",
+            "https://4b3b-2405-201-3002-151-b85a-c52b-c2de-8712.ngrok-free.app/api/submission-callback",
         })),
       }
     );
     const submission = await client.submission.create({
       data: {
         userId: user.Id,
-        code : submissionInputres.data.code,
-        questionId : submissionInputres.data.problemId,
-        status : "PENDING",
+        code: submissionInputres.data.code,
+        questionId: submissionInputres.data.problemId,
+        status: "PENDING",
       },
     });
+    console.log(response, submission);
     return NextResponse.json({ message: "submission send" }, { status: 201 });
   } catch (error) {
     console.log(error);

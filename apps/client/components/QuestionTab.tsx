@@ -5,7 +5,7 @@ import QuestionEditorial from "./QuestionEditorial";
 import QuestionSubmissions from "./QuestionSubmissions";
 import QuestionSolutions from "./QuestionSolutions";
 import axios from "axios";
-import { Loader } from "lucide-react";
+import { Loader,FlaskConical } from "lucide-react";
 
 const getQuestion = async (Id: string) => {
   try {
@@ -31,7 +31,7 @@ const QuestionTab = async ({ questionId }: { questionId: string }) => {
             Editorial
           </TabsTrigger>
           <TabsTrigger className="flex-1" value="solutions">
-            Solutions
+            <FlaskConical/> Solutions
           </TabsTrigger>
           <TabsTrigger className="flex-1" value="submissions">
             Submission

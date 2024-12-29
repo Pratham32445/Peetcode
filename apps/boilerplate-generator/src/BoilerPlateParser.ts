@@ -48,12 +48,11 @@ export class BoilerPlateParser {
       (input) => `${input.type} ${input.name}`
     ).join(",");
     return `${this.Outputs[0].type} ${this.functionName}(${inputs}) {
-      // write From Here 
-    }`;
+      // write From Here\n}`;
   }
   generateJs() {
     const inputs = this.Inputs.map((input) => `${input.name}`).join(",");
-    return `function ${this.functionName}(${inputs}) { \n // start writing code here \n}`;
+    return `function ${this.functionName}(${inputs}) { \n // start writing code here\n}`;
   }
   generateTs() {
     const inputs = this.Inputs.map(

@@ -7,7 +7,6 @@ const MOUNT_PATH = path.join(
   "problems"
 );
 
-
 export const getProblem = async (problemId: string, languageId: string) => {
   problemId = problemId.split(" ").join("-");
   const fullBoilerPlate = await getProblemFullBoilerPlate(
@@ -41,7 +40,7 @@ const getProblemInputs = async (problemId: string) => {
     `${MOUNT_PATH}/${problemId}/tests/inputs`
   );
   const InputsData = Promise.all(
-    Inputs.map(async (file) => {
+    Inputs.slice(0,3).map(async (file) => {
       const InputFilePath = `${MOUNT_PATH}/${problemId}/tests/inputs/${file}`;
       const InputFileData = await fs.promises.readFile(InputFilePath, "utf-8");
       return InputFileData;
@@ -55,7 +54,7 @@ const getProblemOutputs = async (problemId: string) => {
     `${MOUNT_PATH}/${problemId}/tests/outputs`
   );
   const OutputData = Promise.all(
-    Outputs.map(async (file) => {
+    Outputs.slice(0,3).map(async (file) => {
       const outputFilePath = `${MOUNT_PATH}/${problemId}/tests/outputs/${file}`;
       const OutputFileData = await fs.promises.readFile(
         outputFilePath,
@@ -67,20 +66,51 @@ const getProblemOutputs = async (problemId: string) => {
   return OutputData;
 };
 
-export const getProblemPartialBoilerPlate = async (problemId: string) => {
-  const problem  = await client.question.findFirst({
+export const getProblemCodeAndTest = async (problemId: string) => {
+  const problem = await client.question.findFirst({
     where: { Id: problemId },
     select: { title: true },
-  });  
-  if(!problem || !problem.title) return ;
+  });
+  if (!problem || !problem.title) return;
+  // boilerplate
   const title = problem.title.split(" ").join("-");
   const Path = `${MOUNT_PATH}/${title}/boilerplate`;
   const files = await fs.promises.readdir(Path);
-  const boilerPlates : Record<string,string> = {};
-  for(const file of files) {
-    const filePath = path.join(Path,file);
-    const fileContent = await fs.promises.readFile(filePath,"utf-8");
+  const boilerPlates: Record<string, string> = {};
+  for (const file of files) {
+    const filePath = path.join(Path, file);
+    const fileContent = await fs.promises.readFile(filePath, "utf-8");
     boilerPlates[file.split(".")[1]] = fileContent;
   }
-  return boilerPlates;
+  const InputsTestCase = await getInputTests(title);
+  const OutputsTestCase = await getOutputsTests(title);
+  return {boilerPlates,InputsTestCase,OutputsTestCase};
+};
+
+const getInputTests = async (title: string) => {
+  const testCases = `${MOUNT_PATH}/${title}/tests`;
+  const inputs = await fs.promises.readdir(path.join(testCases, "inputs"));
+  const inputTestCases = [];
+  for (const input of inputs) {
+    const inputTestCase = await fs.promises.readFile(
+      path.join(testCases, "inputs", input),
+      "utf-8"
+    );
+    inputTestCases.push(inputTestCase);
+  }
+  return inputTestCases;
+};
+
+const getOutputsTests = async (title: string) => {
+  const testCases = `${MOUNT_PATH}/${title}/tests`;
+  const outputs = await fs.promises.readdir(path.join(testCases, "outputs"));
+  const outputTestCases = [];
+  for (const output of outputs) {
+    const outputTestCase = await fs.promises.readFile(
+      path.join(testCases, "outputs", output),
+      "utf-8"
+    );
+    outputTestCases.push(outputTestCase);
+  }
+  return outputTestCases;
 };

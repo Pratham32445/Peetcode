@@ -24,6 +24,6 @@ export const Problem = z.object({
 
 export const submissionInput = z.object({
   problemId : z.string().min(1,"Please provide the Id for the submission"),
-  languageId : z.string().min(1,"Please provide the LanguageId"),
+  languageId : z.number(),
   code : z.string().min(1,"Please provide the code")
 })

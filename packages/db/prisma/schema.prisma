@@ -78,8 +78,10 @@ model Question {
   problemdiscussionId String?
   discussion          ProblemDiscussion? @relation(fields: [problemdiscussionId], references: [Id])
   Submissions         Submission[]
+  testCases TestCase[]
   UserOnJunction      UserOnJunction[]
 }
+
 
 model ProblemDiscussion {
   Id           String       @id @default(uuid())
@@ -116,6 +118,12 @@ model Submission {
   question   Question         @relation(fields: [questionId], references: [Id])
   status     SubmissionStatus @default(PENDING)
   time       DateTime         @default(now())
+}
+
+model TestCase {
+  Id String @id
+  problemId String
+  problem Question @relation(fields: [problemId],references: [Id])
 }
 
 enum SubmissionStatus {

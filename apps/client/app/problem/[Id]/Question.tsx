@@ -6,10 +6,12 @@ import {
 } from "@/components/ui/resizable";
 import QuestionTab from "@/components/QuestionTab";
 import QuestionEditor from "@/components/QuestionEditor";
-import { getProblemPartialBoilerPlate } from "@/lib/problem";
+import { getProblemCodeAndTest } from "@/lib/problem";
+import QuestionTestcase from "@/components/QuestionTestcase";
 
 const Question = async ({ questionId }: { questionId: string }) => {
-  const boilerPlates = await getProblemPartialBoilerPlate(questionId);
+  const {boilerPlates,InputsTestCase,OutputsTestCase} = await getProblemCodeAndTest(questionId);
+  console.log(InputsTestCase,OutputsTestCase);
   return (
     <div className="w-full h-full flex">
       <ResizablePanelGroup direction="horizontal" className="flex-grow h-full">
@@ -23,13 +25,13 @@ const Question = async ({ questionId }: { questionId: string }) => {
           <ResizablePanelGroup direction="vertical" className="h-full">
             <ResizablePanel defaultSize={75}>
               <div className="flex h-full">
-                <QuestionEditor boilerPlates={boilerPlates} />
+                {boilerPlates && <QuestionEditor boilerPlates={boilerPlates} problemId={questionId} />}
               </div>
             </ResizablePanel>
             <ResizableHandle />
             <ResizablePanel defaultSize={25}>
-              <div className="flex h-full items-center justify-center p-6">
-                <span className="font-semibold">Three</span>
+              <div className="h-full p-3">
+                <QuestionTestcase InputsTestCases={InputsTestCase} outputTestCases={OutputsTestCase}/>
               </div>
             </ResizablePanel>
           </ResizablePanelGroup>
