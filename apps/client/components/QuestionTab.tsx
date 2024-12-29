@@ -20,8 +20,7 @@ const getQuestion = async (Id: string) => {
 const QuestionTab = async ({ questionId }: { questionId: string }) => {
   const problem = await getQuestion(questionId);
 
-  return (
-    problem ?
+  return problem ? (
     <div className="w-full h-[95%] bg-lightBg rounded mb-5">
       <Tabs defaultValue="problem">
         <TabsList className="w-full justify-evenly">
@@ -51,8 +50,10 @@ const QuestionTab = async ({ questionId }: { questionId: string }) => {
           <QuestionSubmissions />
         </TabsContent>
       </Tabs>
-    </div> : <div>
-        <Loader className="animate-spin w-[50px] h-[50px]"/>
+    </div>
+  ) : (
+    <div>
+      <Loader className="animate-spin w-[50px] h-[50px]" />
     </div>
   );
 };

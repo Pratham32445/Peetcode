@@ -5,8 +5,11 @@ import {
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
 import QuestionTab from "@/components/QuestionTab";
+import QuestionEditor from "@/components/QuestionEditor";
+import { getProblemPartialBoilerPlate } from "@/lib/problem";
 
-const Question = ({ questionId }: { questionId: string }) => {
+const Question = async ({ questionId }: { questionId: string }) => {
+  const boilerPlates = await getProblemPartialBoilerPlate(questionId);
   return (
     <div className="w-full h-full flex">
       <ResizablePanelGroup direction="horizontal" className="flex-grow h-full">
@@ -19,8 +22,8 @@ const Question = ({ questionId }: { questionId: string }) => {
         <ResizablePanel defaultSize={60}>
           <ResizablePanelGroup direction="vertical" className="h-full">
             <ResizablePanel defaultSize={75}>
-              <div className="flex h-full items-center justify-center p-6">
-                <span className="font-semibold">Two</span>
+              <div className="flex h-full">
+                <QuestionEditor boilerPlates={boilerPlates} />
               </div>
             </ResizablePanel>
             <ResizableHandle />

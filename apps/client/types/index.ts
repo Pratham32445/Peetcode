@@ -10,4 +10,5 @@ export interface Problem {
   likes: number;
   problemdiscussionId: string;
   title: string;
+  Submissions: any[];
 }

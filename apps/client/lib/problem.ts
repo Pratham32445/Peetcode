@@ -1,10 +1,12 @@
 import path from "path";
 import fs from "fs";
+import client from "@repo/db/client";
 
 const MOUNT_PATH = path.join(
   "C:\\Users\\91626\\Documents\\Harkirat\\peetcode\\apps",
   "problems"
 );
+
 
 export const getProblem = async (problemId: string, languageId: string) => {
   problemId = problemId.split(" ").join("-");
@@ -63,4 +65,22 @@ const getProblemOutputs = async (problemId: string) => {
     })
   );
   return OutputData;
+};
+
+export const getProblemPartialBoilerPlate = async (problemId: string) => {
+  const problem  = await client.question.findFirst({
+    where: { Id: problemId },
+    select: { title: true },
+  });  
+  if(!problem || !problem.title) return ;
+  const title = problem.title.split(" ").join("-");
+  const Path = `${MOUNT_PATH}/${title}/boilerplate`;
+  const files = await fs.promises.readdir(Path);
+  const boilerPlates : Record<string,string> = {};
+  for(const file of files) {
+    const filePath = path.join(Path,file);
+    const fileContent = await fs.promises.readFile(filePath,"utf-8");
+    boilerPlates[file.split(".")[1]] = fileContent;
+  }
+  return boilerPlates;
 };
