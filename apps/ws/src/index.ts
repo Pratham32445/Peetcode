@@ -1,5 +1,6 @@
 import { WebSocketServer } from "ws";
 import { ProblemManager } from "./ProblemManager.js";
+import client from "@repo/db/client"
 
 const wss = new WebSocketServer({ port: 4000 });
 

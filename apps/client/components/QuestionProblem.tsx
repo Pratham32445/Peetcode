@@ -29,7 +29,7 @@ This problem can be broken into several key steps:
 
 const QuestionProblem = ({ problem }: { problem: Problem }) => {
   return (
-    <div className="w-full min-h-full">
+    <div className="relative w-full min-h-full">
       <ScrollArea style={{ height: "calc(90vh - 100px)" }}>
         {" "}
         {/* Set height to fill available space */}

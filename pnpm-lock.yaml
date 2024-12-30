@@ -153,6 +153,12 @@ importers:
       bufferutil:
         specifier: ^4.0.1
         version: 4.0.9
+      esbuild:
+        specifier: ^0.24.2
+        version: 0.24.2
+      typescript:
+        specifier: ^5.7.2
+        version: 5.7.2
       utf-8-validate:
         specifier: ^5.0.2
         version: 5.0.10

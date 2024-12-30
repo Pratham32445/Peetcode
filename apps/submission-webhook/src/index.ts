@@ -2,7 +2,6 @@ import express, { Request, Response } from "express";
 import cors from "cors";
 import client from "@repo/db/client"
 
-console.log(client);
 
 
 const app = express();
