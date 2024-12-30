@@ -1,16 +1,43 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 const LiveCount = ({ Id }: { Id: string }) => {
   const [usersCount, setUsersCount] = useState(0);
+  const ws = useRef<WebSocket | null>(null);
+
   useEffect(() => {
-    const ws = new WebSocket(`ws://localhost:4000?problemId=${Id}`);
-    ws.onopen = () => {
-      console.log("connected");
+    const connectWebSocket = () => {
+      ws.current = new WebSocket(`ws://localhost:4000?problemId=${Id}`);
+      ws.current.onopen = () => {
+        console.log("connected");
+      };
+      ws.current.onmessage = (event) => {
+        const parsedata = JSON.parse(event.data);
+        setUsersCount(parsedata.count);
+      };
     };
-    ws.onmessage = (event) => {
-      const parsedata = JSON.parse(event.data);
-      setUsersCount(parsedata.count);
+
+    connectWebSocket();
+
+    const handleBeforeUnload = () => {
+      if (ws.current) {
+        ws.current.send(
+          JSON.stringify({
+            type: "userDisconnect",
+            payload: {
+              problemId: Id,
+            },
+          })
+        );
+      }
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+      if (ws.current) {
+        ws.current.close();
+      }
     };
   }, [Id]);
 
