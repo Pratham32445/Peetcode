@@ -108,16 +108,19 @@ model UserOnJunction {
 }
 
 model Submission {
-  Id         String           @id @default(uuid())
-  userId     String
-  code       String
-  questionId String
-  errorType  String?
-  user       User             @relation(fields: [userId], references: [Id])
-  question   Question         @relation(fields: [questionId], references: [Id])
-  status     SubmissionStatus @default(PENDING)
-  time       DateTime         @default(now())
-  message    String?
+  Id                  String           @id @default(uuid())
+  userId              String
+  code                String
+  questionId          String
+  errorType           String?
+  user                User             @relation(fields: [userId], references: [Id])
+  question            Question         @relation(fields: [questionId], references: [Id])
+  status              SubmissionStatus @default(PENDING)
+  time                Int              @default(0)
+  message             String?
+  testCaseLength      Int?
+  wrongTestCaseLength Int?
+  memoryUsed          Int              @default(0)
 }
 
 model TestCase {
@@ -133,6 +136,7 @@ enum SubmissionStatus {
   PENDING
   ACCEPTED
   TLE
+  WRONG_ANSWER
   ERROR
 }
 

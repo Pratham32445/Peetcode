@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Submission" ALTER COLUMN "time" DROP DEFAULT,
+ALTER COLUMN "time" SET DATA TYPE TEXT;

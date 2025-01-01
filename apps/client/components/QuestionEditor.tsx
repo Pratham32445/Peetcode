@@ -47,11 +47,18 @@ const QuestionEditor = ({
         languageId: LANGUAGE_MAPPING[language as keyof typeof LANGUAGE_MAPPING],
         code: editorState,
       });
+      console.log(res.data.submissionId, "Hello");
       if (res.data.submissionId) {
         const intervalId = setInterval(async () => {
-          const fetchResult = await fetchSubmissionResult(res.data.Id);
-          if (fetchResult.status != "PENDING") {
-            setIsProblemSubmitted({status : true,submissionID : res.data.submissionId});
+          const { submission } = await fetchSubmissionResult(
+            res.data.submissionId
+          );
+          console.log(submission.status, "Status");
+          if (submission.status !== "PENDING") {
+            setIsProblemSubmitted({
+              status: true,
+              submissionID: res.data.submissionId,
+            });
             clearInterval(intervalId);
           }
         }, 5000);

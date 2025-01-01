@@ -3,6 +3,7 @@ import cors from "cors";
 import client from "@repo/db/client";
 import base64 from "base-64";
 import { testCase } from "./zod";
+import { calculateTimeMemory } from "./lib/submission";
 
 const app = express();
 
@@ -48,7 +49,56 @@ app.put("/api/submission-callback", async (req: Request, res: Response) => {
       }
       return res.status(201).send("chill testcase");
     }
-    const parsedBody = testCase.safeParse(req.body);
+    if (req.body.status.id == 3) {
+      const res = await client.testCase.update({
+        where: { token: req.body.token },
+        data: {
+          status: "ACCEPTED",
+          time: req.body.time,
+          memory: String(req.body.memory),
+        },
+      });
+      const allCases: any[] = await client.testCase.findMany({
+        where: { submissionId: res.submissionId },
+      });
+      let isEvaluated = 0;
+      for (let testcase of allCases) {
+        if (testcase.status == "ACCEPTED") isEvaluated++;
+      }
+      if (isEvaluated == allCases.length) {
+        const [totalTime, totalMemory] = calculateTimeMemory(allCases);
+        await client.submission.update({
+          where: { Id: res.submissionId },
+          data: {
+            status: "ACCEPTED",
+            memoryUsed: Number(totalMemory),
+            time: Number(totalTime),
+            testCaseLength: allCases.length,
+          },
+        });
+      }
+    } else if (req.body.status.id == 4) {
+      const submittedCount = 0;
+      const testCase = await client.testCase.findFirst({
+        where: { token: req.body.token },
+      });
+      let isEvaluated = 0;
+      const allCases: any[] = await client.testCase.findMany({
+        where: { submissionId: testCase?.submissionId },
+      });
+      for (let testcase of allCases) {
+        if (testcase.status == "ACCEPTED") isEvaluated++;
+      }
+      await client.submission.update({
+        where: { Id: testCase?.submissionId! },
+        data: {
+          status: "WRONG_ANSWER",
+          memoryUsed: Number(totalMemory),
+          time: Number(totalTime),
+          testCaseLength: allCases.length,
+        },
+      });
+    }
     return res.status(201).json({
       message: "send",
     });
