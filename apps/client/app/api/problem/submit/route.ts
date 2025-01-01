@@ -6,7 +6,7 @@ import client from "@repo/db/client";
 import { getProblem } from "@/lib/problem";
 import axios from "axios";
 
-const JUDGE0_URI = "http://3.110.223.52:2358";
+const JUDGE0_URI = "http://13.234.238.166:2358";
 
 export const POST = async (req: NextRequest) => {
   try {
@@ -56,7 +56,7 @@ export const POST = async (req: NextRequest) => {
           stdin: input,
           expected_output: problem.outputs[index],
           callback_url:
-            "https://4b3b-2405-201-3002-151-b85a-c52b-c2de-8712.ngrok-free.app/api/submission-callback",
+            "https://62a5-2405-201-3002-151-248f-5bdf-3dbb-cbd8.ngrok-free.app/api/submission-callback",
         })),
       }
     );
@@ -68,8 +68,19 @@ export const POST = async (req: NextRequest) => {
         status: "PENDING",
       },
     });
-    console.log(response, submission);
-    return NextResponse.json({ message: "submission send" }, { status: 201 });
+    if (submission) {
+      await client.testCase.createMany({
+        data: problem.inputs.map((_, idx) => ({
+          submissionId: submission.Id,
+          token: response.data[idx].token,
+          status: "PENDING",
+        })),
+      });
+    }
+    return NextResponse.json(
+      { submissionId: submission.Id, message: "submission send" },
+      { status: 201 }
+    );
   } catch (error) {
     console.log(error);
     return NextResponse.json(

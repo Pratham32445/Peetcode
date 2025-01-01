@@ -2,6 +2,13 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
+const NavabarItems = [
+  { name: "Explore", href: "/explore" },
+  { name: "Problems", href: "/problems" },
+  { name: "Discussion", href: "/discussion" },
+  { name: "Interview", href: "/interview" },
+];
+
 const Navbar = () => {
   return (
     <header className="text-white fixed inset-x-0 top-0 z-50 hidden  backdrop-blur transition will-change-auto md:block">
@@ -12,16 +19,17 @@ const Navbar = () => {
             <p className="text-white">AlgoHub</p>
           </div>
           <div className="flex-1">
-            <div className="flex gap-10 justify-center">
-              <div className="rounded-full px-4 py-2 opacity-60 hover:bg-white/5 hover:opacity-100">
-                <Link href={"/"}>Explore</Link>
-              </div>
-              <div className="rounded-full px-4 py-2 opacity-60 hover:bg-white/5 hover:opacity-100">
-                <Link href={"/problems"}>Problems</Link>
-              </div>
-              <div className="rounded-full px-4 py-2 opacity-60 hover:bg-white/5 hover:opacity-100">
-                <Link href={"/"}>Disscussion</Link>
-              </div>
+            <div className="flex items-center gap-10 justify-center">
+              {NavabarItems.map(({ name, href }, idx) => (
+                <div
+                  key={idx}
+                  className="rounded-full px-4 py-2 opacity-60 hover:bg-white/5 hover:opacity-100"
+                >
+                  <Link href={href}>
+                    <p className="flex">{name}</p>
+                  </Link>
+                </div>
+              ))}
             </div>
           </div>
           <div className="flex-1">

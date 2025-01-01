@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Editor from "@monaco-editor/react";
 import { LoaderCircle, RotateCcw } from "lucide-react";
 import {
@@ -13,6 +13,8 @@ import {
 import { LANGUAGE_MAPPING, MONACO_LANGUAGE_MAPPING } from "@/lib/Mapping";
 import { Button } from "./ui/button";
 import axios from "axios";
+import { fetchSubmissionResult } from "@/lib/submission";
+import { MainContext } from "@/context/State";
 
 const QuestionEditor = ({
   boilerPlates,
@@ -24,6 +26,8 @@ const QuestionEditor = ({
   const [language, setLanguage] = useState("cpp");
   const [editorState, setEditorState] = useState<string>("");
   const [loading, setLoading] = useState(true);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const { setIsProblemSubmitted } = useContext(MainContext);
   const SERVER_URI = "http://localhost:3000";
 
   useEffect(() => {
@@ -37,14 +41,23 @@ const QuestionEditor = ({
 
   const createSubmission = async () => {
     try {
+      setIsSubmitted(true);
       const res = await axios.post(`${SERVER_URI}/api/problem/submit`, {
         problemId,
         languageId: LANGUAGE_MAPPING[language as keyof typeof LANGUAGE_MAPPING],
-        code: editorState
+        code: editorState,
       });
-      console.log(res.data);
+      if (res.data.submissionId) {
+        const intervalId = setInterval(async () => {
+          const fetchResult = await fetchSubmissionResult(res.data.Id);
+          if (fetchResult.status != "PENDING") {
+            setIsProblemSubmitted({status : true,submissionID : res.data.submissionId});
+            clearInterval(intervalId);
+          }
+        }, 5000);
+      }
     } catch (error) {
-      console.error('Submission error:', error);
+      console.error("Submission error:", error);
     }
   };
 
@@ -53,7 +66,7 @@ const QuestionEditor = ({
   }
 
   return (
-    <div className="relative w-full h-full p-2">
+    <div className="relative w-full h-full p-2 mb-5">
       <div className="border mb-1 flex items-center justify-between">
         <div>
           <Select onValueChange={setLanguage} value={language}>
@@ -124,17 +137,29 @@ const QuestionEditor = ({
             showFolders: false,
             showTypeParameters: false,
             showSnippets: false,
-          }
+          },
         }}
       />
-      <div className="absolute bottom-0 right-[10px] flex gap-5 p-2">
-        <Button className="bg">Run</Button>
-        <Button
-          className="bg-[#2CBB5D] hover:bg-[#26a954] text-white"
-          onClick={createSubmission}
-        >
-          Submit
-        </Button>
+      <div className="absolute bottom-0 right-[10px] p-2">
+        {!isSubmitted ? (
+          <div className="flex items-center gap-5">
+            <Button className="px-6 bg-lightSubmit hover:bg-lightSubmit text-white">
+              Run
+            </Button>
+            <Button
+              className="bg-bgSucess px-10 py-5 hover:bg-[#26a954] text-white"
+              onClick={createSubmission}
+            >
+              Submit
+            </Button>{" "}
+          </div>
+        ) : (
+          <div>
+            <Button className="bg-lightSubmit hover:bg-lightSubmit px-20 py-5">
+              <p className="text-white">Pending...</p>
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );
