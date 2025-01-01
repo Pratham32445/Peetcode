@@ -38,6 +38,7 @@ app.put("/api/submission-callback", async (req: Request, res: Response) => {
             where: { Id: submission.Id },
             data: {
               status: "ERROR",
+              errorType: req.body.status.description,
               message: req.body.compile_output
                 ? base64.decode(req.body.compile_output)
                 : "",

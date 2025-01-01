@@ -112,6 +112,7 @@ model Submission {
   userId     String
   code       String
   questionId String
+  errorType  String?
   user       User             @relation(fields: [userId], references: [Id])
   question   Question         @relation(fields: [questionId], references: [Id])
   status     SubmissionStatus @default(PENDING)

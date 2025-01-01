@@ -20,7 +20,7 @@ const EditorAndSubmit = ({
       )}
     </div>
   ) : (
-    <div className="w-full bg-lightBg z-50 absolute bg- top-0 left-0 bottom-0 right-0 min-h-full">
+    <div className="w-full bg-lightBg z-50 absolute bg- top-0 left-0 bottom-0 right-0 h-[90vh]">
      <SubmissionResult submissionId={isProblemSubmitted.submissionID}/>
     </div>
   );
