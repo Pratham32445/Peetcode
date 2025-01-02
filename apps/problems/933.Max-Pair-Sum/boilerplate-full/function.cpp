@@ -8,10 +8,14 @@
   int main() {
       // Declare input variables
       vector<int> nums;
+
+      int size ;
+
+      cin >> size;
   
       // Read inputs
-  cin >> nums;
-  
+      for(int i=0;i<size;i++) cin >> nums[i];
+
       // Call the function
       int result = findMaxPairSum(nums);
   

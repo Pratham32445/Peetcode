@@ -35,6 +35,7 @@ const QuestionEditor = ({
     setLoading(false);
   }, [language, boilerPlates]);
 
+
   const formatCode = (editor: any) => {
     editor.getAction("editor.action.formatDocument").run();
   };

@@ -67,12 +67,12 @@ export class FullBoilerPlateParser {
 
     // Determine output type
     const outputType = this.Outputs[0]?.type || "void";
-    const functionCall = `    ${outputType} result = ${this.functionName}(${this.Inputs.map((input) => input.name).join(", ")});`;
+    const functionCall = `${outputType} result = ${this.functionName}(${this.Inputs.map((input) => input.name).join(", ")});`;
 
     // Output result to console
     const outputWrite = `cout << result << endl;`;
 
-    return `
+    return `  
   #include <iostream>
   #include <vector>
   #include <string>

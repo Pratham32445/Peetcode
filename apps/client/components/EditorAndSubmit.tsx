@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import QuestionEditor from "./QuestionEditor";
 import { MainContext } from "@/context/State";
 import SubmissionResult from "./SubmissionResult";
@@ -12,7 +12,13 @@ const EditorAndSubmit = ({
   questionId: string;
   boilerPlates: any;
 }) => {
-  const { isProblemSubmitted } = useContext(MainContext);
+  const { isProblemSubmitted, setIsProblemSubmitted } = useContext(MainContext);
+  console.log(isProblemSubmitted);
+
+  useEffect(() => {
+    setIsProblemSubmitted({ status: false, submissionID: null });
+  }, []);
+
   return !isProblemSubmitted.status ? (
     <div className="flex h-full">
       {boilerPlates && (

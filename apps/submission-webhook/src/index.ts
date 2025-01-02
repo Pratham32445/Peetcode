@@ -4,6 +4,7 @@ import client from "@repo/db/client";
 import base64 from "base-64";
 import { testCase } from "./zod";
 import { calculateTimeMemory } from "./lib/submission";
+import test from "node:test";
 
 const app = express();
 
@@ -15,7 +16,6 @@ app.use(cors());
 
 app.put("/api/submission-callback", async (req: Request, res: Response) => {
   try {
-    console.log(req.body);
     if (req.body.status.id == 6 || req.body.status.id == 11) {
       const testCase = await client.testCase.findFirst({
         where: { token: req.body.token },
@@ -90,6 +90,7 @@ app.put("/api/submission-callback", async (req: Request, res: Response) => {
       for (let testcase of allCases) {
         if (testcase.status == "ACCEPTED") isEvaluated++;
       }
+      console.log(testCase);
       const res = await client.submission.update({
         where: { Id: testCase?.submissionId! },
         data: {
