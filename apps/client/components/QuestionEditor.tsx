@@ -47,7 +47,6 @@ const QuestionEditor = ({
         languageId: LANGUAGE_MAPPING[language as keyof typeof LANGUAGE_MAPPING],
         code: editorState,
       });
-      console.log(res.data.submissionId, "Hello");
       if (res.data.submissionId) {
         const intervalId = setInterval(async () => {
           const { submission } = await fetchSubmissionResult(
@@ -59,9 +58,11 @@ const QuestionEditor = ({
               status: true,
               submissionID: res.data.submissionId,
             });
+            if (submission.status == "ACCEPTED") {
+            }
             clearInterval(intervalId);
           }
-        }, 5000);
+        }, 2000);
       }
     } catch (error) {
       console.error("Submission error:", error);

@@ -119,17 +119,23 @@ model Submission {
   time                Int              @default(0)
   message             String?
   testCaseLength      Int?
+  acceptedtestCase    Int?
   wrongTestCaseLength Int?
   memoryUsed          Int              @default(0)
+  expectedInput       String[]
+  expectedOutput      String?
+  userOutput         String?
 }
 
 model TestCase {
-  Id           String  @id @default(uuid())
+  Id           String   @id @default(uuid())
   submissionId String
-  token        String  @unique
+  token        String   @unique
   status       String
   time         String?
   memory       String?
+  Input        String[]
+  output       String?
 }
 
 enum SubmissionStatus {

@@ -74,6 +74,7 @@ app.put("/api/submission-callback", async (req: Request, res: Response) => {
             memoryUsed: Number(totalMemory),
             time: Number(totalTime),
             testCaseLength: allCases.length,
+            acceptedtestCase: isEvaluated,
           },
         });
       }
@@ -89,13 +90,15 @@ app.put("/api/submission-callback", async (req: Request, res: Response) => {
       for (let testcase of allCases) {
         if (testcase.status == "ACCEPTED") isEvaluated++;
       }
-      await client.submission.update({
+      const res = await client.submission.update({
         where: { Id: testCase?.submissionId! },
         data: {
           status: "WRONG_ANSWER",
-          memoryUsed: Number(totalMemory),
-          time: Number(totalTime),
           testCaseLength: allCases.length,
+          acceptedtestCase: isEvaluated,
+          expectedInput : testCase?.Input,
+          expectedOutput : testCase?.output,
+          userOutput : base64.decode(req.body.stdout)
         },
       });
     }

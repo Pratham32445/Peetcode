@@ -56,7 +56,7 @@ export const POST = async (req: NextRequest) => {
           stdin: input,
           expected_output: problem.outputs[index],
           callback_url:
-            "https://a316-2405-201-3002-151-c44-cc3e-295e-9658.ngrok-free.app/api/submission-callback",
+            "https://a8d0-2405-201-3002-151-11b7-f4c0-dc1e-9a7a.ngrok-free.app/api/submission-callback",
         })),
       }
     );
@@ -68,12 +68,15 @@ export const POST = async (req: NextRequest) => {
         status: "PENDING",
       },
     });
+    console.log(problem.inputs);
     if (submission) {
       await client.testCase.createMany({
-        data: problem.inputs.map((_, idx) => ({
+        data: problem.inputs.map((input, idx) => ({
           submissionId: submission.Id,
           token: response.data[idx].token,
           status: "PENDING",
+          Input: input.split("\r\n"),
+          output: problem.outputs[idx],
         })),
       });
     }

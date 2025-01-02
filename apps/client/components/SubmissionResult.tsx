@@ -32,7 +32,7 @@ const SubmissionResult = ({ submissionId }: { submissionId: string }) => {
       color: "#D4D4D4",
       padding: "1.5rem",
       borderRadius: "0.5rem",
-      fontSize: "14px",
+      fontSize: "18px",
       lineHeight: "1.5",
     },
     "hljs-keyword": { color: "#569CD6" },
@@ -46,8 +46,6 @@ const SubmissionResult = ({ submissionId }: { submissionId: string }) => {
     "hljs-attr": { color: "#E06C75" },
   };
 
-  console.log(submission);
-
   return (
     <ScrollArea className="h-[90vh]">
       {!isLoading && submission ? (
@@ -60,31 +58,40 @@ const SubmissionResult = ({ submissionId }: { submissionId: string }) => {
           >
             <ArrowLeft />
           </div>
-          <div className="flex items-center justify-between">
-            <div>
-              <div className="flex items-center gap-3">
-                {submission.status == "ERROR" && (
-                  <div>
-                    <p className="text-red-400 text-2xl">
-                      {submission.errorType}
+          <div className="flex items-top justify-between">
+            <div className="flex items-top gap-3">
+              {submission.status == "WRONG_ANSWER" && (
+                <div>
+                  <p className="text-red-700 text-2xl">Wrong Answer</p>
+                </div>
+              )}
+              {submission.status == "ERROR" && (
+                <div>
+                  <p className="text-red-400 text-2xl">
+                    {submission.errorType}
+                  </p>
+                </div>
+              )}
+              {submission.status == "ACCEPTED" && (
+                <div>
+                  <p className="text-bgSucess text-xl font-medium">Accepted</p>
+                </div>
+              )}
+              {(submission.status == "ACCEPTED" ||
+                submission.status == "WRONG_ANSWER") && (
+                <div>
+                  <p className="text-sm text-neutral-400">
+                    {submission.acceptedtestCase} / {submission.testCaseLength}{" "}
+                    testcases passed
+                  </p>
+                  <div className="flex items-center gap-3">
+                    <p className="text-sm items-center">Pratham Mehta</p>
+                    <p className="text-xs text-neutral-400">
+                      submitted at Dec 21, 2024 09:02
                     </p>
                   </div>
-                )}
-                {submission.status == "ACCEPTED" && (
-                  <div>
-                    <p className="text-bgSucess text-xl font-bold">Accepted</p>
-                    <p className="text-sm text-neutral-400">
-                      63 / 63 testcases passed
-                    </p>
-                    <div className="flex items-center gap-3">
-                      <p className="text-sm items-center">Pratham Mehta</p>
-                      <p className="text-xs text-neutral-400">
-                        submitted at Dec 21, 2024 09:02
-                      </p>
-                    </div>
-                  </div>
-                )}
-              </div>
+                </div>
+              )}
             </div>
             <div className="flex items-center gap-5">
               <Button className="px-10 py-4 bg-lightSubmit text-white">
@@ -95,6 +102,33 @@ const SubmissionResult = ({ submissionId }: { submissionId: string }) => {
               </Button>
             </div>
           </div>
+          {submission.status == "WRONG_ANSWER" && (
+            <div className="my-3">
+              <p>Input:</p>
+              {submission.expectedInput.map((Input: { Input: string }) => (
+                <div
+                  className="bg-[#333333] p-4 my-3 rounded"
+                  key={Math.random()}
+                >
+                  <div>
+                    <p>{Input}</p>
+                  </div>
+                </div>
+              ))}
+              <p>Output:</p>
+              <div className="bg-[#362b2a] p-4 my-3 rounded">
+                <div>
+                  <p>{submission.userOutput}</p>
+                </div>
+              </div>
+              <p>Expected Output:</p>
+              <div className="p-4 bg-[#333333] my-3 rounded">
+                <div>
+                  <p>{submission.expectedOutput}</p>
+                </div>
+              </div>
+            </div>
+          )}
           <div className="mt-6">
             {submission.status == "ERROR" && (
               <div className="bg-[#362b2a] p-5 py-10 rounded">
@@ -103,113 +137,16 @@ const SubmissionResult = ({ submissionId }: { submissionId: string }) => {
                 </div>
               </div>
             )}
-            {submission.status == "ACCEPTED" && (
+            {(submission.status == "ACCEPTED" ||
+              submission.status == "WRONG_ANSWER") && (
               <SyntaxHighlighter
-                language="javascript"
+                language="cpp"
                 style={customStyle}
                 className="shadow-lg"
                 showLineNumbers={true}
                 wrapLines={true}
               >
-                {`#include <bits/stdc++.h>
-using namespace std;
-
-// Custom comparator for priority queue
-struct CompareNodes {
-    bool operator()(pair<int, int>& a, pair<int, int>& b) {
-        return a.second > b.second;
-    }
-};
-
-class Solution {
-private:
-    // Helper function to check if a cell is valid
-    bool isValid(int x, int y, int rows, int cols) {
-        return x >= 0 && x < rows && y >= 0 && y < cols;
-    }
-    
-public:
-    vector<vector<int>> shortestPathMatrix(vector<vector<int>>& grid) {
-        if (grid.empty() || grid[0].empty()) return {};
-        
-        int rows = grid.size();
-        int cols = grid[0].size();
-        
-        // Direction vectors for moving in 4 directions
-        vector<int> dx = {-1, 0, 1, 0};
-        vector<int> dy = {0, 1, 0, -1};
-        
-        // Initialize distance matrix with infinity
-        vector<vector<int>> distance(rows, vector<int>(cols, INT_MAX));
-        distance[0][0] = grid[0][0];
-        
-        // Priority queue to store {cell position, current distance}
-        priority_queue<pair<int, int>, vector<pair<int, int>>, CompareNodes> pq;
-        pq.push({0, grid[0][0]});
-        
-        // Process cells in order of increasing distance
-        while (!pq.empty()) {
-            auto [pos, dist] = pq.top();
-            pq.pop();
-            
-            int x = pos / cols;
-            int y = pos % cols;
-            
-            // Skip if we've found a better path
-            if (dist > distance[x][y]) continue;
-            
-            // Try all four directions
-            for (int i = 0; i < 4; i++) {
-                int newX = x + dx[i];
-                int newY = y + dy[i];
-                
-                if (isValid(newX, newY, rows, cols)) {
-                    int newDist = distance[x][y] + grid[newX][newY];
-                    
-                    // Update distance if we found a shorter path
-                    if (newDist < distance[newX][newY]) {
-                        distance[newX][newY] = newDist;
-                        pq.push({newX * cols + newY, newDist});
-                    }
-                }
-            }
-        }
-        
-        return distance;
-    }
-    
-    // Function to print the shortest path matrix
-    void printMatrix(vector<vector<int>>& matrix) {
-        for (const auto& row : matrix) {
-            for (int val : row) {
-                if (val == INT_MAX) {
-                    cout << "INF ";
-                } else {
-                    cout << val << " ";
-                }
-            }
-            cout << "\\n";
-        }
-    }
-};
-
-int main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(nullptr);
-    
-    // Example usage
-    Solution solution;
-    vector<vector<int>> grid = {
-        {1, 3, 1},
-        {1, 5, 1},
-        {4, 2, 1}
-    };
-    
-    vector<vector<int>> result = solution.shortestPathMatrix(grid);
-    solution.printMatrix(result);
-    
-    return 0;
-}`}
+                {submission.code}
               </SyntaxHighlighter>
             )}
           </div>
