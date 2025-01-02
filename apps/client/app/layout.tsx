@@ -3,7 +3,7 @@ import { Geist, Geist_Mono, Inter_Tight } from "next/font/google";
 import "./globals.css";
 import Provider from "@/Provider";
 import { ThemeProvider } from "@/components/theme-provider";
-import { Toaster } from "@/components/ui/toaster"
+import { Toaster } from "@/components/ui/toaster";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,7 +32,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${interTight.variable} antialiased`}>
+      <body
+        className={`${interTight.variable} ${geistMono.variable} antialiased`}
+      >
         <ThemeProvider
           attribute={"class"}
           defaultTheme="dark"
@@ -40,8 +42,8 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Provider>{children}</Provider>
-          <Toaster/>
-        </ThemeProvider>  
+          <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   );

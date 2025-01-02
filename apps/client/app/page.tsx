@@ -4,9 +4,9 @@ import React from "react";
 
 const Home = () => {
   return (
-    <div className="bg-lightBg pt-[80px] w-full min-h-screen">
+    <div className="bg-[#09090B] pt-[80px] w-full min-h-screen">
       <Navbar />
-      <div className="w-full h-full text-center">
+      <div className="w-full min-h-full text-center">
         <Hero />
       </div>
     </div>

@@ -11,12 +11,12 @@ const NavabarItems = [
 
 const Navbar = () => {
   return (
-    <header className="text-white fixed inset-x-0 top-0 z-50 hidden  backdrop-blur transition will-change-auto md:block">
+    <header className="fixed inset-x-0 top-0 z-50 hidden bg-zinc-950/80 backdrop-blur transition will-change-auto md:block">
       <div className="mx-auto max-w-screen-xl px-6 md:px-10">
         <div className="flex items-center border-b border-b-white/5 py-5">
           <div className="flex-1 flex items-center gap-3">
             <Image src={"leetcode.svg"} width={30} height={30} alt="logo" />
-            <p className="text-white">AlgoHub</p>
+            <p className="text-white">PeetCode</p>
           </div>
           <div className="flex-1">
             <div className="flex items-center gap-10 justify-center">
