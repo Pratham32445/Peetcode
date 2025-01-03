@@ -63,7 +63,7 @@ interface NeonGradientCardProps {
    * The colors of the neon gradient
    * */
   neonColors?: NeonColorsProps;
-
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
 }
 
