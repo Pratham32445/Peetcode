@@ -16,7 +16,7 @@ const IntrviewOneToOne = () => {
           <ResizablePanelGroup direction="horizontal" className="w-full border">
             <ResizablePanel defaultSize={60}>
               <div className="w-full h-full">
-                <Editor Id="223232" />
+                <Editor/>
               </div>
             </ResizablePanel>
             <ResizableHandle withHandle />

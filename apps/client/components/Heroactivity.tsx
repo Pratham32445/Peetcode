@@ -6,7 +6,6 @@ import { MainContext } from "@/context/State";
 const Heroactivity = ({ activity }: { activity: any }) => {
   const { title, desc, color, defaultValue } = activity;
   const { hoverState, setHoverState } = useContext(MainContext);
-  console.log(hoverState);
   
   return (
     <div

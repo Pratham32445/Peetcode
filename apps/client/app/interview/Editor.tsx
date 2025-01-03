@@ -4,7 +4,7 @@ import React from "react";
 import { Editor as VsEditor } from "@monaco-editor/react";
 import { boilerPlates } from "./boilerplate";
 
-const Editor = ({ Id }: { Id: string }) => {
+const Editor = () => {
   return (
     <VsEditor
       height="100%"

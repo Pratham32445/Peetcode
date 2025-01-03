@@ -40,7 +40,7 @@ const getProblemInputs = async (problemId: string) => {
     `${MOUNT_PATH}/${problemId}/tests/inputs`
   );
   const InputsData = Promise.all(
-    Inputs.slice(0,3).map(async (file) => {
+    Inputs.slice(0, 3).map(async (file) => {
       const InputFilePath = `${MOUNT_PATH}/${problemId}/tests/inputs/${file}`;
       const InputFileData = await fs.promises.readFile(InputFilePath, "utf-8");
       return InputFileData;
@@ -54,7 +54,7 @@ const getProblemOutputs = async (problemId: string) => {
     `${MOUNT_PATH}/${problemId}/tests/outputs`
   );
   const OutputData = Promise.all(
-    Outputs.slice(0,3).map(async (file) => {
+    Outputs.slice(0, 3).map(async (file) => {
       const outputFilePath = `${MOUNT_PATH}/${problemId}/tests/outputs/${file}`;
       const OutputFileData = await fs.promises.readFile(
         outputFilePath,
@@ -71,7 +71,7 @@ export const getProblemCodeAndTest = async (problemId: string) => {
     where: { Id: problemId },
     select: { title: true },
   });
-  if (!problem || !problem.title) return;
+  if (!problem || !problem.title) return ;
   // boilerplate
   const title = problem.title.split(" ").join("-");
   const Path = `${MOUNT_PATH}/${title}/boilerplate`;
@@ -84,7 +84,7 @@ export const getProblemCodeAndTest = async (problemId: string) => {
   }
   const InputsTestCase = await getInputTests(title);
   const OutputsTestCase = await getOutputsTests(title);
-  return {boilerPlates,InputsTestCase,OutputsTestCase};
+  return { boilerPlates, InputsTestCase, OutputsTestCase };
 };
 
 const getInputTests = async (title: string) => {

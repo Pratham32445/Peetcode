@@ -2,9 +2,9 @@
 
 import React, { createContext, useState } from "react";
 
-export const MainContext = createContext(null);
+export const MainContext = createContext<any>(null);
 
-const State = ({ children }: { children: any }) => {
+const State = ({ children }: { children: React.ReactNode }) => {
   const [isProblemSubmitted, setIsProblemSubmitted] = useState<{
     status: boolean;
     submissionID: null | string;

@@ -10,8 +10,9 @@ import {
 } from "@/components/ui/resizable";
 
 const Question = async ({ questionId }: { questionId: string }) => {
-  const { boilerPlates, InputsTestCase, OutputsTestCase } =
-    await getProblemCodeAndTest(questionId);
+  const res = await getProblemCodeAndTest(questionId);
+  if (!res) return;
+  const { boilerPlates, InputsTestCase, OutputsTestCase } = res;
   return (
     <div className="w-full h-full flex">
       <ResizablePanelGroup direction="horizontal" className="flex-grow h-full">
@@ -24,7 +25,10 @@ const Question = async ({ questionId }: { questionId: string }) => {
         <ResizablePanel className="relative" defaultSize={60}>
           <ResizablePanelGroup direction="vertical" className="h-full">
             <ResizablePanel defaultSize={60}>
-              <EditorAndSubmit boilerPlates={boilerPlates} questionId={questionId}/>
+              <EditorAndSubmit
+                boilerPlates={boilerPlates}
+                questionId={questionId}
+              />
             </ResizablePanel>
             <ResizableHandle />
             <ResizablePanel defaultSize={40}>

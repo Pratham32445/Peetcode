@@ -35,7 +35,6 @@ const QuestionEditor = ({
     setLoading(false);
   }, [language, boilerPlates]);
 
-
   const formatCode = (editor: any) => {
     editor.getAction("editor.action.formatDocument").run();
   };
@@ -95,7 +94,11 @@ const QuestionEditor = ({
       </div>
       <Editor
         height="100%"
-        language={MONACO_LANGUAGE_MAPPING[language]}
+        language={
+          MONACO_LANGUAGE_MAPPING[
+            language as keyof typeof MONACO_LANGUAGE_MAPPING
+          ]
+        }
         theme="vs-dark"
         value={editorState}
         onMount={formatCode}
