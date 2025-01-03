@@ -13,6 +13,8 @@ const State = ({ children }: { children: React.ReactNode }) => {
 
   const [hoverState, setHoverState] = useState<string[]>();
 
+  const [InterviewEditor, setInterviewEditor] = useState("");
+
   const [submissionResult, setSubmissionResult] = useState();
 
   const contextValue = {
@@ -22,6 +24,8 @@ const State = ({ children }: { children: React.ReactNode }) => {
     setHoverState,
     submissionResult,
     setSubmissionResult,
+    InterviewEditor,
+    setInterviewEditor,
   };
 
   return (

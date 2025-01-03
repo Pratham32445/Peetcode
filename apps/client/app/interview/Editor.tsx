@@ -1,15 +1,20 @@
 "use client";
 
-import React from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { Editor as VsEditor } from "@monaco-editor/react";
 import { boilerPlates } from "./boilerplate";
+import { MainContext } from "@/context/State";
 
 const Editor = () => {
+  const { setInterviewEditor } = useContext(MainContext);
+
   return (
     <VsEditor
       height="100%"
       language={"cpp"}
       theme="vs-light"
+      onChange={(value) => setInterviewEditor(value || "")}
+      onMount={(editor) => setInterviewEditor(editor.getValue())}
       defaultValue={boilerPlates["cpp"]}
       options={{
         minimap: { enabled: false },

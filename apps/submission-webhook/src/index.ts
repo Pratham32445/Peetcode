@@ -4,7 +4,6 @@ import client from "@repo/db/client";
 import base64 from "base-64";
 import { testCase } from "./zod";
 import { calculateTimeMemory } from "./lib/submission";
-import test from "node:test";
 
 const app = express();
 
@@ -97,9 +96,9 @@ app.put("/api/submission-callback", async (req: Request, res: Response) => {
           status: "WRONG_ANSWER",
           testCaseLength: allCases.length,
           acceptedtestCase: isEvaluated,
-          expectedInput : testCase?.Input,
-          expectedOutput : testCase?.output,
-          userOutput : base64.decode(req.body.stdout)
+          expectedInput: testCase?.Input,
+          expectedOutput: testCase?.output,
+          userOutput: base64.decode(req.body.stdout),
         },
       });
     }
