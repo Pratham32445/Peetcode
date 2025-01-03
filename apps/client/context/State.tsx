@@ -10,7 +10,14 @@ const State = ({ children }: { children: any }) => {
     submissionID: null | string;
   }>({ status: false, submissionID: null });
 
-  const contextValue = { isProblemSubmitted, setIsProblemSubmitted};
+  const [hoverState, setHoverState] = useState<string[]>();
+
+  const contextValue = {
+    isProblemSubmitted,
+    setIsProblemSubmitted,
+    hoverState,
+    setHoverState,
+  };
 
   return (
     <MainContext.Provider value={contextValue}>{children}</MainContext.Provider>

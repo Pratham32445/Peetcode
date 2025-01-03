@@ -56,7 +56,7 @@ export const POST = async (req: NextRequest) => {
           stdin: input,
           expected_output: problem.outputs[index],
           callback_url:
-            "https://f281-2405-201-3002-151-7cda-8bb3-65c0-aaf7.ngrok-free.app/api/submission-callback",
+            "https://73ef-2405-201-3002-151-e03f-a0b1-566f-239c.ngrok-free.app/api/submission-callback",
         })),
       }
     );

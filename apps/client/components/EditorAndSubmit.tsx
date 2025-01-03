@@ -13,7 +13,6 @@ const EditorAndSubmit = ({
   boilerPlates: any;
 }) => {
   const { isProblemSubmitted, setIsProblemSubmitted } = useContext(MainContext);
-  console.log(isProblemSubmitted);
 
   useEffect(() => {
     setIsProblemSubmitted({ status: false, submissionID: null });
