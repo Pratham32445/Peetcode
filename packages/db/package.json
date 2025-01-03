@@ -7,11 +7,19 @@
   "license": "ISC",
   "description": "",
   "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc -w",
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+  },
   "dependencies": {
     "@prisma/client": "6.1.0",
-    "prisma": "^6.1.0"
+    "prisma": "^6.1.0",
+    "typescript": "^5.7.2"
   },
-  "exports" : {
-    "./client" : "./index.ts"
+  "exports": {
+    "./client": "./index.ts"
   }
 }

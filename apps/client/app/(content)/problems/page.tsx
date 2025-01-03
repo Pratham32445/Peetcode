@@ -14,8 +14,13 @@ import Link from "next/link";
 
 const getProblems = async () => {
   const SERVER_URI = process.env.SERVER_URI;
-  const { data } = await axios.get(`${SERVER_URI}/api/problem`);
-  return data.problems;
+  try {
+    const { data } = await axios.get(`${SERVER_URI}/api/problem`);
+    return data.problems || [];
+  } catch (error) {
+    console.error("Error fetching problems:", error);
+    return [];
+  }
 };
 
 const Difficulty = {
@@ -26,7 +31,6 @@ const Difficulty = {
 
 const Problems = async () => {
   const problems = await getProblems();
-  console.log(problems);
   return (
     <div className="w-full min-h-full p-5">
       <div className="w-3/4 px-10 py-4">
