@@ -10,6 +10,7 @@ import { ArrowLeft } from "lucide-react";
 import { MainContext } from "@/context/State";
 
 const SubmissionResult = ({ submissionId }: { submissionId: string }) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [submission, setSubmission] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
   const { isProblemSubmitted, setIsProblemSubmitted } = useContext(MainContext);
@@ -45,9 +46,8 @@ const SubmissionResult = ({ submissionId }: { submissionId: string }) => {
     "hljs-params": { color: "#E06C75" },
     "hljs-attr": { color: "#E06C75" },
   };
-  
+
   console.log(submission);
-  
 
   return (
     <ScrollArea className="h-[90vh]">
@@ -108,7 +108,7 @@ const SubmissionResult = ({ submissionId }: { submissionId: string }) => {
           {submission.status == "WRONG_ANSWER" && (
             <div className="my-3">
               <p>Input:</p>
-              {submission.expectedInput.map((Input: { Input: string }) => (
+              {submission.expectedInput.map((Input: string) => (
                 <div
                   className="bg-[#333333] p-4 my-3 rounded"
                   key={Math.random()}

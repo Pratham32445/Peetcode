@@ -2,6 +2,7 @@
 
 import React, { createContext, useState } from "react";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const MainContext = createContext<any>(null);
 
 const State = ({ children }: { children: React.ReactNode }) => {

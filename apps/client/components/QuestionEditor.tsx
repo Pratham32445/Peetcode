@@ -35,6 +35,7 @@ const QuestionEditor = ({
     setLoading(false);
   }, [language, boilerPlates]);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const formatCode = (editor: any) => {
     editor.getAction("editor.action.formatDocument").run();
   };

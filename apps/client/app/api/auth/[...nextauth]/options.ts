@@ -5,7 +5,8 @@ import client from "@repo/db/client";
 
 export const authOptions: AuthOptions = {
   callbacks: {
-    async signIn({ account, profile }): any {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    async signIn({ account, profile }): Promise<any> {
       if (account?.provider == "google") {
         if (!profile) return;
         let user = await client.user.findFirst({
@@ -24,7 +25,8 @@ export const authOptions: AuthOptions = {
         email: { type: "text", placeholder: "Enter email" },
         password: { type: "text" },
       },
-      async authorize(credentials): any {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      async authorize(credentials): Promise<any> {
         if (!credentials) return;
         const { email, password } = credentials;
         const isUser = await client.user.findFirst({ where: { email } });

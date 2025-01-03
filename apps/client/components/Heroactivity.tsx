@@ -3,6 +3,7 @@ import React, { useContext } from "react";
 import { Button } from "./ui/button";
 import { MainContext } from "@/context/State";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Heroactivity = ({ activity }: { activity: any }) => {
   const { title, desc, color, defaultValue } = activity;
   const { hoverState, setHoverState } = useContext(MainContext);

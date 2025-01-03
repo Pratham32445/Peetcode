@@ -10,6 +10,7 @@ const EditorAndSubmit = ({
   questionId,
 }: {
   questionId: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   boilerPlates: any;
 }) => {
   const { isProblemSubmitted, setIsProblemSubmitted } = useContext(MainContext);
