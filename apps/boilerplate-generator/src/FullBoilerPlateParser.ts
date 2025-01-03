@@ -48,14 +48,12 @@ export class FullBoilerPlateParser {
 
     // Generate input reading logic for each field
     const inputReads = this.Inputs.map((field) => {
-      if (field.type.startsWith("list<")) {
-        const elementType = field.type.match(/list<(\w+)>/)?.[1] || "int";
+      if (field.type.startsWith("vector<")) {
+        const elementType = field.type.match(/vector<(\w+)>/)?.[1] || "int";
         return `
       int size_${field.name};
-      cout << "Enter size of ${field.name}: ";
       cin >> size_${field.name};
       ${field.type} ${field.name}(size_${field.name});
-      cout << "Enter elements of ${field.name}: ";
       for (int i = 0; i < size_${field.name}; ++i) {
           cin >> ${field.name}[i];
       }
@@ -73,10 +71,13 @@ export class FullBoilerPlateParser {
     const outputWrite = `cout << result << endl;`;
 
     return `  
-  #include <iostream>
-  #include <vector>
-  #include <string>
-  using namespace std;
+#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>  // For algorithms like sort(), etc.
+#include <cmath>      // For mathematical functions like sqrt(), pow(), etc.
+#include <limits>     // For numeric limits like INT_MAX, etc.
+using namespace std;
 
    ## CODE_HERE ##
   

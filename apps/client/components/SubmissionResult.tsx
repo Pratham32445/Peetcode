@@ -48,8 +48,6 @@ const SubmissionResult = ({ submissionId }: { submissionId: string }) => {
     "hljs-attr": { color: "#E06C75" },
   };
 
-  console.log(submission);
-
   return (
     <ScrollArea className="h-[90vh]">
       {!isLoading && submission ? (

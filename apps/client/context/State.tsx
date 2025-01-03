@@ -13,11 +13,15 @@ const State = ({ children }: { children: React.ReactNode }) => {
 
   const [hoverState, setHoverState] = useState<string[]>();
 
+  const [submissionResult, setSubmissionResult] = useState();
+
   const contextValue = {
     isProblemSubmitted,
     setIsProblemSubmitted,
     hoverState,
     setHoverState,
+    submissionResult,
+    setSubmissionResult,
   };
 
   return (
