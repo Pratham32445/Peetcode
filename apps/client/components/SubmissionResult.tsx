@@ -23,6 +23,7 @@ const SubmissionResult = ({ submissionId }: { submissionId: string }) => {
       }
     };
     fetchResult();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const customStyle = {

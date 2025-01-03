@@ -17,6 +17,7 @@ const EditorAndSubmit = ({
 
   useEffect(() => {
     setIsProblemSubmitted({ status: false, submissionID: null });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return !isProblemSubmitted.status ? (

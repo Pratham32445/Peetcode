@@ -41,7 +41,10 @@ const QuestionProblem = ({ problem }: { problem: Problem }) => {
             <div className="bg-hoverColor px-4 py-2 rounded-full">
               <p
                 className="text-xs"
-                style={{ color: Difficulty[problem.difficulty] }}
+                style={{
+                  color:
+                    Difficulty[problem.difficulty as keyof typeof Difficulty],
+                }}
               >
                 {problem.difficulty}
               </p>
@@ -78,7 +81,7 @@ const QuestionProblem = ({ problem }: { problem: Problem }) => {
             <div>Acceptance Rate : {"100%"}</div>
           </div>
         </div>
-        <LiveCount Id={problem.Id}/>
+        <LiveCount Id={problem.Id} />
       </ScrollArea>
     </div>
   );
