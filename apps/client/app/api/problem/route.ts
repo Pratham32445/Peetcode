@@ -4,7 +4,7 @@ import client from "@repo/db/client";
 export const GET = async () => {
   try {
     const res = await client.question.findMany({});
-    return NextResponse.json({ problems: res }, { status: 201 });
+    return NextResponse.json({ problems: res || [] }, { status: 201 });
   } catch (error) {
     console.log(error);
     return NextResponse.json(

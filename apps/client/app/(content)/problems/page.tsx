@@ -13,9 +13,8 @@ import { BookOpenCheck, CircleCheckBig } from "lucide-react";
 import Link from "next/link";
 
 const getProblems = async () => {
-  const SERVER_URI = process.env.SERVER_URI;
   try {
-    const { data } = await axios.get(`${SERVER_URI}/api/problem`);
+    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/problem`);
     return data.problems || [];
   } catch (error) {
     console.error("Error fetching problems:", error);
