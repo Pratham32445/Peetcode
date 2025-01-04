@@ -28,7 +28,6 @@ const Output = () => {
       }
     }, 1000);
   };
-  console.log(outputResult);
   return (
     <div className="bg-white text-black h-full p-6">
       <Button

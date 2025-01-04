@@ -8,11 +8,10 @@
   "description": "",
   "type": "module",
   "scripts": {
-    "build": "tsc",
-    "dev": "tsc -w",
     "db:generate": "prisma generate",
-    "db:push": "prisma db push",
-    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+    "db:push": "prisma db push --skip-generate",
+    "db:migrate": "prisma migrate deploy",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@prisma/client": "6.1.0",
