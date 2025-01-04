@@ -9,6 +9,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 const Output = () => {
   const { InterviewEditor } = useContext(MainContext);
   const [isLoading, setIsLoading] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [outputResult, setOutputResult] = useState<any>(null);
   const API_HOST = "13.234.238.166:2358";
   const submitCode = async () => {

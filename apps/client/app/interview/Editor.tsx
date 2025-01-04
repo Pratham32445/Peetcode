@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useContext } from "react";
 import { Editor as VsEditor } from "@monaco-editor/react";
 import { boilerPlates } from "./boilerplate";
 import { MainContext } from "@/context/State";
