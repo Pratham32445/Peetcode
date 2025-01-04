@@ -19,7 +19,6 @@ const Output = () => {
       source_code: InterviewEditor,
     });
     const token = data.token;
-    console.log(token);
     const Interval = setInterval(async () => {
       const res = await axios.get(`http://${API_HOST}/submissions/${token}`);
       if (res.data.status.description != "Processing") {
