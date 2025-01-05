@@ -14,7 +14,7 @@ import Link from "next/link";
 
 const getProblems = async () => {
   try {
-    const { data } = await axios.get(`/api/problem`);
+    const { data } = await axios.get(`${process.env.VERCEL_URL}/api/problem`);
     return data.problems || [];
   } catch (error) {
     console.error("Error fetching problems:", error);
