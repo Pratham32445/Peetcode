@@ -14,7 +14,7 @@ import Link from "next/link";
 
 const getProblems = async () => {
   try {
-    const { data } = await axios.get(`http://${process.env.VERCEL_URL}/api/problem`);
+    const { data } = await axios.get(`http://${process.env.VERCEL_URL}/api/problem/api/problem`);
     return data.problems || [];
   } catch (error) {
     console.error("Error fetching problems:", error);
@@ -46,7 +46,7 @@ const Problems = async () => {
           </TableHeader>
           <TableBody>
             {problems &&
-              problems.map((problem: Problem) => (
+               problems.map((problem: Problem) => (
                 <TableRow key={problem.Id} className="cursor-pointer">
                   <TableCell className="font-medium">
                     <CircleCheckBig className="text-bgSucess" />
