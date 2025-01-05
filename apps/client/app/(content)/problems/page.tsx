@@ -14,7 +14,7 @@ import Link from "next/link";
 
 const getProblems = async () => {
   try {
-    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/problem`);
+    const { data } = await axios.get(`/api/problem`);
     return data.problems || [];
   } catch (error) {
     console.error("Error fetching problems:", error);

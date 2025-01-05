@@ -2,15 +2,7 @@
   "name": "peetcode",
   "private": true,
   "scripts": {
-    "build": "turbo run build",
-    "deploy-db": "cd packages/db && npm run db:push && npm run db:generate",
-    "deploy-client": "cd apps/client && vercel --prod",
-    "deploy-boilerplate-generator": "cd apps/boilerplate-generator && vercel --prod",
-    "deploy-problems": "cd apps/problems && vercel --prod",
-    "deploy-submission-webhook": "cd apps/submission-webhook && vercel --prod",
-    "deploy-webrtc-ws": "cd apps/webrtc-ws && vercel --prod",
-    "deploy-ws": "cd apps/ws && vercel --prod",
-    "deploy-all": "npm run build && npm run deploy-db && npm run deploy-client && npm run deploy-boilerplate-generator && npm run deploy-problems && npm run deploy-submission-webhook && npm run deploy-webrtc-ws && npm run deploy-ws"
+    "build": "turbo run build"
   },
   "devDependencies": {
     "prettier": "^3.2.5",
