@@ -12,11 +12,13 @@
     "db:push": "prisma db push --skip-generate"
   },
   "dependencies": {
-    "@prisma/client": "6.1.0",
-    "prisma": "^6.1.0",
     "typescript": "^5.7.2"
   },
   "exports": {
     "./client": "./index.ts"
+  },
+  "devDependencies": {
+    "@prisma/client": "^6.1.0",
+    "prisma": "^6.1.0"
   }
 }

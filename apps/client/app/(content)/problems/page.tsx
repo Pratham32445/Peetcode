@@ -7,15 +7,15 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Problem } from "@/types";
-import axios from "axios";
 import { BookOpenCheck, CircleCheckBig } from "lucide-react";
 import Link from "next/link";
+import client from "@repo/db/client";
 
 const getProblems = async () => {
   try {
-    const { data } = await axios.get(`http://${process.env.VERCEL_URL}/api/problem/api/problem`);
-    return data.problems || [];
+    const problems = await client.question.findMany({});
+    // const { data } = await axios.get(`${process.env.VERCEL_URL}/api/problem`);
+    return problems || [];
   } catch (error) {
     console.error("Error fetching problems:", error);
     return [];
@@ -46,7 +46,7 @@ const Problems = async () => {
           </TableHeader>
           <TableBody>
             {problems &&
-               problems.map((problem: Problem) => (
+              problems.map((problem) => (
                 <TableRow key={problem.Id} className="cursor-pointer">
                   <TableCell className="font-medium">
                     <CircleCheckBig className="text-bgSucess" />

@@ -66,12 +66,13 @@ app.put("/api/submission-callback", async (req: Request, res: Response) => {
       }
       if (isEvaluated == allCases.length) {
         const [totalTime, totalMemory] = calculateTimeMemory(allCases);
+        console.log(totalMemory,totalTime);
         await client.submission.update({
           where: { Id: res.submissionId },
           data: {
             status: "ACCEPTED",
-            memoryUsed: Number(totalMemory),
-            time: Number(totalTime),
+            memoryUsed: Number(totalMemory)/1024,
+            time: Number(totalTime) * 1000,
             testCaseLength: allCases.length,
             acceptedtestCase: isEvaluated,
           },

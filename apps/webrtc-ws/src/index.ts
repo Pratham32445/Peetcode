@@ -1,7 +1,8 @@
-import {WebSocketServer} from "ws";
+import {WebSocketServer} from "ws"; 
 
-const wss = new WebSocketServer();
+const wss = new WebSocketServer({port : 4001})
 
-wss.on("connection",(ws,request)=>{
+wss.on("connection",(ws) => {
+
     
 })

@@ -5,7 +5,9 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "windows"]
+  output        = "../node_modules/.prisma/client"
 }
 
 datasource db {
@@ -124,7 +126,7 @@ model Submission {
   memoryUsed          Int              @default(0)
   expectedInput       String[]
   expectedOutput      String?
-  userOutput         String?
+  userOutput          String?
 }
 
 model TestCase {

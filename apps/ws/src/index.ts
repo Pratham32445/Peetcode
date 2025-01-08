@@ -6,7 +6,7 @@ const wss = new WebSocketServer({ port: 4000 });
 
 const Manager = new ProblemManager();
 
-wss.on("connection", async (ws, req) => {
+wss.on("connection", async (ws : WebSocket, req) => {
   const url = new URLSearchParams(req.url?.split("?")[1]);
   const problemId = url.get("problemId");
   if (!problemId) return;
