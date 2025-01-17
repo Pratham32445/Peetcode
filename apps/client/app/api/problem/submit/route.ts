@@ -6,7 +6,7 @@ import client from "@/db/index"
 import { getProblem } from "@/lib/problem";
 import axios from "axios";
 
-const JUDGE0_URI = "http://13.234.238.166:2358";
+const JUDGE0_URI = process.env.JUDGE_0_URI!;
 
 export const POST = async (req: NextRequest) => {
   try {

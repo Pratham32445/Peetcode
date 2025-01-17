@@ -13,7 +13,7 @@ wss.on("connection", async (ws : WebSocket, req) => {
   const isProblem = await client.question.findFirst({
     where: { Id: problemId },
   });
-  if (!isProblem) return;
+  if (!isProblem || !ws) return;
   Manager.joinUser(problemId, ws);
   ws.onmessage = async (event) => {
     const data = await JSON.parse(event.data.toString());
