@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import cors from "cors";
-import client from "@repo/db/client";
+import client from "./db/index"
 import base64 from "base-64";
 import { testCase } from "./zod";
 import { calculateTimeMemory } from "./lib/submission";

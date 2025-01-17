@@ -1,6 +1,13 @@
 import fs from "fs";
 import path from "path";
 
+export function createRootDir(rootPath: string) {
+  if (!fs.existsSync(rootPath)) {
+    fs.mkdirSync(rootPath, { recursive: true });
+  }
+  return rootPath;
+}
+
 export const createDir = (dirPath: string) => {
   try {
     if (fs.existsSync(dirPath)) return;

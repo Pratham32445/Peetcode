@@ -1,7 +1,7 @@
 import { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
-import client from "@repo/db/client";
+import client from "@/db/index"
 
 export const authOptions: AuthOptions = {
   callbacks: {

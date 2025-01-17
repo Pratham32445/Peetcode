@@ -12,3 +12,9 @@ export interface Problem {
   title: string;
   Submissions: any[];
 }
+
+export const Difficulty = {
+  MEDIUM: "#FFA116",
+  EASY: "#117B6F",
+  HARD: "#CC3352",
+};

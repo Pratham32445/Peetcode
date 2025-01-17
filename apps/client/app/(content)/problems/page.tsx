@@ -9,24 +9,31 @@ import {
 } from "@/components/ui/table";
 import { BookOpenCheck, CircleCheckBig } from "lucide-react";
 import Link from "next/link";
-import client from "@repo/db/client";
+import axios from "axios"
+import { Difficulty } from "@/types";
+
+
+interface Problem {
+  Id : string;
+  title : string;
+  difficulty : string;
+  acceptancerate : string | null;
+}
+
+export const dynamic = "force-dynamic";
 
 const getProblems = async () => {
   try {
-    const problems = await client.question.findMany({});
-    // const { data } = await axios.get(`${process.env.VERCEL_URL}/api/problem`);
-    return problems || [];
+    const { data } = await axios.get(process.env.PRODUCTION_URL!);
+    console.log(data);
+    return data.problems || [];
   } catch (error) {
     console.error("Error fetching problems:", error);
     return [];
   }
 };
 
-const Difficulty = {
-  MEDIUM: "#FFA116",
-  EASY: "#117B6F",
-  HARD: "#CC3352",
-};
+
 
 const Problems = async () => {
   const problems = await getProblems();
@@ -46,7 +53,7 @@ const Problems = async () => {
           </TableHeader>
           <TableBody>
             {problems &&
-              problems.map((problem) => (
+              problems.map((problem : Problem) => (
                 <TableRow key={problem.Id} className="cursor-pointer">
                   <TableCell className="font-medium">
                     <CircleCheckBig className="text-bgSucess" />

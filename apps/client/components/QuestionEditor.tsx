@@ -28,7 +28,7 @@ const QuestionEditor = ({
   const [loading, setLoading] = useState(true);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { setIsProblemSubmitted } = useContext(MainContext);
-  const SERVER_URI = "http://localhost:3000";
+  const SERVER_URI = process.env.PRODUCTION_URL!;
 
   useEffect(() => {
     setEditorState(boilerPlates[language] || "");

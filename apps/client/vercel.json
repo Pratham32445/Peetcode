@@ -1,8 +1,0 @@
-{
-    "build": {
-      "env": {
-        "PACKAGE_MANAGER": "pnpm"
-      }
-    }
-  }
-  

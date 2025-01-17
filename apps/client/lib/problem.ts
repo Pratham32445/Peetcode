@@ -1,11 +1,8 @@
 import path from "path";
 import fs from "fs";
-import client from "@repo/db/client";
+import client from "@/db";
 
-const MOUNT_PATH = path.join(
-  "C:\\Users\\91626\\Documents\\Harkirat\\peetcode\\apps",
-  "problems"
-);
+const MOUNT_PATH = "/peetcode/problems";
 
 export const getProblem = async (problemId: string, languageId: string) => {
   problemId = problemId.split(" ").join("-");

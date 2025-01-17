@@ -5,7 +5,7 @@ import TabBar from "./TabBar";
 
 const getQuestion = async (Id: string) => {
   try {
-    const SERVER_URI = process.env.NEXT_PUBLIC_BASE_URL;
+    const SERVER_URI = process.env.PRODUCTION_URL;
     const { data } = await axios.get(`${SERVER_URI}/api/problem/${Id}`);
     return data.problem;
   } catch (error) {

@@ -1,5 +1,5 @@
 import { Problem } from "@/types/zod";
-import client from "@repo/db/client";
+import client from "@/db/index"
 import { NextRequest, NextResponse } from "next/server";
 import Redis from "ioredis";
 

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BACKEND_URI = "http://localhost:3000";
+const BACKEND_URI = process.env.PRODUCTION_URL!;
 
 export const fetchSubmissionResult = async (Id: string, status : string = "status") => {
   try {

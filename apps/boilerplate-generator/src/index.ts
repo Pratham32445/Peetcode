@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 import path from "path";
 import fs from "fs";
 import { FullBoilerPlateParser } from "./FullBoilerPlateParser";
-import { createDir, generateFile } from "./fs";
+import { createDir, createRootDir, generateFile } from "./fs";
 
 dotenv.config();
 
@@ -12,13 +12,13 @@ console.log(process.env.REDIS_URL);
 
 const subscriber = new Redis(process.env.REDIS_URL!);
 
-subscriber.on("connect",()=>{
+subscriber.on("connect", () => {
   console.log("connected");
-})
+});
 
 const Queue_name = "Push_Problems";
 
-const rootPath = path.join(__dirname, "../../", "problems");
+const rootPath = createRootDir(path.join(__dirname, "../../", "problems"));
 
 const generateBoilerPlate = (structure: string) => {
   const parser = new BoilerPlateParser();
@@ -73,10 +73,9 @@ async function main() {
     generateFile(filePath, parsedData.structure);
 
     const fullBoilerPlateCode = path.join(questionDirPath, "boilerplate-full");
-    if (!fs.existsSync(fullBoilerPlateCode))
-      createDir(fullBoilerPlateCode);
+    if (!fs.existsSync(fullBoilerPlateCode)) createDir(fullBoilerPlateCode);
     // full cpp code
-    generateFile(path.join(fullBoilerPlateCode,"function.cpp"),fullCppCode);
+    generateFile(path.join(fullBoilerPlateCode, "function.cpp"), fullCppCode);
   }
 }
 
