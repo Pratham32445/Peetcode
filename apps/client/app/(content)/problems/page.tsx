@@ -24,7 +24,7 @@ export const dynamic = "force-dynamic";
 
 const getProblems = async () => {
   try {
-    const { data } = await axios.get(process.env.PRODUCTION_URL!);
+    const { data } = await axios.get(`${process.env.PRODUCTION_URL}/api/problem`);
     console.log(data);
     return data.problems || [];
   } catch (error) {
