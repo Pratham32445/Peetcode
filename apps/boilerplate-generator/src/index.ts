@@ -75,7 +75,7 @@ async function main() {
     const fullBoilerPlateCode = path.join(questionDirPath, "boilerplate-full");
     if (!fs.existsSync(fullBoilerPlateCode)) createDir(fullBoilerPlateCode);
     // full cpp code
-    generateFile(path.join(fullBoilerPlateCode, "function.cpp"), fullCppCode);
+    generateFile(path.join(fullBoilerPlateCode, "function.cpp"), fullCppCode);  
   }
 }
 

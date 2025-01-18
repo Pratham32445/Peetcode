@@ -1,0 +1,46 @@
+version: '3.9'
+
+services:
+
+  # client
+  client:
+    container_name: client-app
+    image: pratham59/peetcode-client
+    ports:
+      - "3000:3000"
+    environment:
+      - PRODUCTION_URL=http://65.0.170.163:3000
+      - JUDGE_0_URI=http://13.127.195.192:2358
+      - REDIS_URL=rediss://default:AbHjAAIjcDExYzI0ODI5YWM5MTA0ZjMyOGRiZjQwNDllZDM3M2M0N3AxMA@lasting-possum-45539.upstash.io:6379
+    restart: always
+    volumes:
+      - problems-data:/peetcode/problems
+
+  # boilerplate
+  boilerPlate:
+    container_name: boilerPlate-gen
+    image: pratham59/peetcode-boilerplate
+    environment:
+      - REDIS_URL=rediss://default:AbHjAAIjcDExYzI0ODI5YWM5MTA0ZjMyOGRiZjQwNDllZDM3M2M0N3AxMA@lasting-possum-45539.upstash.io:6379
+    volumes:
+      - problems-data:/problems
+
+  # ws
+  ws:
+    container_name: peetcode-ws
+    image: pratham59/peetcode-ws
+    environment:
+      - DATABASE_URL=postgresql://neondb_owner:p8n2KcxzFeAB@ep-snowy-poetry-a5w65snc.us-east-2.aws.neon.tech/neondb?sslmode=require
+    ports:
+      - "4000:4000"
+
+  submission-webhook:
+    container-name: peetcode-submission-webhook
+    image: pratham59/peetcode-submission-webhook:latest
+    environment:
+      - DATABASE_URL=postgresql://neondb_owner:p8n2KcxzFeAB@ep-snowy-poetry-a5w65snc.us-east-2.aws.neon.tech/neondb?sslmode=require
+    ports:
+      - "5000:5000"
+
+volumes:
+  problems-data:
