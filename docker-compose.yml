@@ -5,42 +5,53 @@ services:
   # client
   client:
     container_name: client-app
-    image: pratham59/peetcode-client
+    image: pratham59/peetcode-client:latest
     ports:
       - "3000:3000"
     environment:
-      - PRODUCTION_URL=http://65.0.170.163:3000
-      - JUDGE_0_URI=http://13.127.195.192:2358
-      - REDIS_URL=rediss://default:AbHjAAIjcDExYzI0ODI5YWM5MTA0ZjMyOGRiZjQwNDllZDM3M2M0N3AxMA@lasting-possum-45539.upstash.io:6379
+      - PRODUCTION_URL=${PRODUCTION_URL}
+      - JUDGE_0_URI=${JUDGE_0_URI}
+      - REDIS_URL=${REDIS_URL}
+      - CALLBACK_URL=${CALLBACK_URL}
+      - NEXT_PUBLIC_PRODUCTION_WEB_SOCKET=${NEXT_PUBLIC_PRODUCTION_WEB_SOCKET}
     restart: always
     volumes:
       - problems-data:/peetcode/problems
+    env_file:
+      - .env
 
   # boilerplate
   boilerPlate:
     container_name: boilerPlate-gen
-    image: pratham59/peetcode-boilerplate
+    image: pratham59/peetcode-boilerplate:latest
     environment:
-      - REDIS_URL=rediss://default:AbHjAAIjcDExYzI0ODI5YWM5MTA0ZjMyOGRiZjQwNDllZDM3M2M0N3AxMA@lasting-possum-45539.upstash.io:6379
+      - REDIS_URL=${REDIS_URL}
     volumes:
       - problems-data:/problems
+    env_file:
+      - .env
 
   # ws
   ws:
     container_name: peetcode-ws
-    image: pratham59/peetcode-ws
+    image: pratham59/peetcode-ws:latest
     environment:
-      - DATABASE_URL=postgresql://neondb_owner:p8n2KcxzFeAB@ep-snowy-poetry-a5w65snc.us-east-2.aws.neon.tech/neondb?sslmode=require
-    ports:
+      - DATABASE_URL=${DATABASE_URL}
+    ports:  
       - "4000:4000"
+    env_file:
+      - .env
 
+  # submission webhook
   submission-webhook:
-    container-name: peetcode-submission-webhook
+    container_name: peetcode-submission-webhook
     image: pratham59/peetcode-submission-webhook:latest
     environment:
-      - DATABASE_URL=postgresql://neondb_owner:p8n2KcxzFeAB@ep-snowy-poetry-a5w65snc.us-east-2.aws.neon.tech/neondb?sslmode=require
+      - DATABASE_URL=${DATABASE_URL}
     ports:
       - "5000:5000"
+    env_file:
+      - .env
 
 volumes:
   problems-data:

@@ -43,6 +43,7 @@ const QuestionEditor = ({
   const createSubmission = async () => {
     try {
       setIsSubmitted(true);
+      console.log(SERVER_URI);
       const res = await axios.post(`${SERVER_URI}/api/problem/submit`, {
         problemId,
         languageId: LANGUAGE_MAPPING[language as keyof typeof LANGUAGE_MAPPING],

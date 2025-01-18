@@ -4,10 +4,10 @@ import React, { useEffect, useRef, useState } from "react";
 const LiveCount = ({ Id }: { Id: string }) => {
   const [usersCount, setUsersCount] = useState(0);
   const ws = useRef<WebSocket | null>(null);
-
+  console.log(process.env.PRODUCTION_WEB_SOCKET!,"websocket");
   useEffect(() => {
     const connectWebSocket = () => {
-      ws.current = new WebSocket(`ws://localhost:4000?problemId=${Id}`);
+      ws.current = new WebSocket(`${process.env.NEXT_PUBLIC_PRODUCTION_WEB_SOCKET!}?problemId=${Id}`);
       ws.current.onopen = () => {
         console.log("connected");
       };
