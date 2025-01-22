@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const companiesData = [
@@ -27,10 +28,11 @@ const Companies = () => {
       </div>
       <div className="mt-[30px]">
         <div className="flex gap-4">
-          {companiesData.map(({ name, image }, idx) => (
-            <div
+          {companiesData.map(({ name, image, link }, idx) => (
+            <Link
+              href={link}
               key={idx}
-              className="relative w-[400px] h-[150px] bg-white overflow-hidden rounded-lg cursor-pointer flex justify-center items-center"
+              className="relative w-[400px] h-[150px] bg-white overflow-hidden rounded-lg cursor-pointer flex justify-center items-center shadow-custom"
             >
               <div className="absolute bottom-[10px]">
                 <p className="text-black text-lg font-bold">{name}</p>
@@ -43,7 +45,7 @@ const Companies = () => {
                 objectFit="contain"
                 priority
               />
-            </div>
+            </Link>
           ))}
         </div>
       </div>

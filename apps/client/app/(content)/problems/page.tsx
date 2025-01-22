@@ -9,37 +9,33 @@ import {
 } from "@/components/ui/table";
 import { BookOpenCheck, CircleCheckBig } from "lucide-react";
 import Link from "next/link";
-import axios from "axios"
+import axios from "axios";
 import { Difficulty } from "@/types";
-
+import SolvedProblem from "./SolvedProblem";
 
 interface Problem {
-  Id : string;
-  title : string;
-  difficulty : string;
-  acceptancerate : string | null;
+  Id: string;
+  title: string;
+  difficulty: string;
+  acceptancerate: string | null;
 }
 
 export const dynamic = "force-dynamic";
 
 const getProblems = async () => {
   try {
-    console.log(process.env.NEXT_PUBLIC_PRODUCTION_URL);
     const { data } = await axios.get(`http://localhost:3000/api/problem`);
-    console.log(data);  
-    // return data.problems || [];
+    return data.problems || [];
   } catch (error) {
     console.error("Error fetching problems:", error);
     return [];
   }
 };
 
-
-
 const Problems = async () => {
   const problems = await getProblems();
   return (
-    <div className="w-full min-h-full p-5">
+    <div className="w-full min-h-full p-5 flex">
       <div className="w-3/4 px-10 py-4">
         <Table className="w-full overflow-hidden">
           <TableHeader className="pb-5">
@@ -54,7 +50,7 @@ const Problems = async () => {
           </TableHeader>
           <TableBody>
             {problems &&
-              problems.map((problem : Problem) => (
+              problems.map((problem: Problem) => (
                 <TableRow key={problem.Id} className="cursor-pointer">
                   <TableCell className="font-medium">
                     <CircleCheckBig className="text-bgSucess" />
@@ -97,6 +93,9 @@ const Problems = async () => {
           </TableBody>
           <TableFooter></TableFooter>
         </Table>
+      </div>
+      <div>
+        <SolvedProblem/>
       </div>
     </div>
   );

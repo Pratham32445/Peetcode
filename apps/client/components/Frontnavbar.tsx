@@ -3,6 +3,8 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import { FlameKindling } from "lucide-react";
+import { useSession } from "next-auth/react";
+import Image from "next/image";
 
 const navbarItems = [
   { name: "Problems", href: "/problems" },
@@ -14,8 +16,9 @@ const navbarItems = [
 
 const Frontnavbar = () => {
   const [selectedState, setSelectedState] = useState("Problems");
+  const session = useSession();
   return (
-    <div className="bg-[#282828]">
+    <div className="bg-[#282828] flex items-center justify-between px-4">
       <div className="flex items-center">
         <div className="p-4">
           <FlameKindling color="#FFA116" width={30} height={30} />
@@ -24,7 +27,11 @@ const Frontnavbar = () => {
           {navbarItems.map(({ name, href }, idx) => (
             <div
               key={idx}
-              className={`border-4 ${selectedState == name && "border-b-white"} p-4`}
+              className={`p-4 cursor-pointer ${
+                selectedState === name
+                  ? "border-b-4 border-white"
+                  : "border-transparent"
+              }`}
               onClick={() => setSelectedState(name)}
             >
               <Link href={href}>
@@ -33,6 +40,17 @@ const Frontnavbar = () => {
             </div>
           ))}
         </div>
+      </div>
+      <div>
+        {session && (
+          <Image
+            src={session.data?.user?.image!}
+            width={35}
+            height={35}
+            className="rounded-full"
+            alt="profile"
+          />
+        )}
       </div>
     </div>
   );
