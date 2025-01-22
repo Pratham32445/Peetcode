@@ -6,7 +6,7 @@ import client from "@/db/index"
 import { getProblem } from "@/lib/problem";
 import axios from "axios";
 
-const JUDGE0_URI = process.env.JUDGE_0_URI!;
+const JUDGE0_URI = process.env.NEXT_PUBLIC_JUDGE_0_URI!;
 
 export const POST = async (req: NextRequest) => {
   try {
@@ -56,7 +56,7 @@ export const POST = async (req: NextRequest) => {
           stdin: input,
           expected_output: problem.outputs[index],
           callback_url:
-            `${process.env.CALLBACK_URL!}/api/submission-callback`,
+            `${process.env.NEXT_PUBLIC_CALLBACK_URL!}/api/submission-callback`,
         })),
       }
     );

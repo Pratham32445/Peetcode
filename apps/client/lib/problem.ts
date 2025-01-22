@@ -1,8 +1,7 @@
 import path from "path";
 import fs from "fs";
 import client from "@/db";
-
-const MOUNT_PATH = "/peetcode/problems";
+import { MOUNT_PATH } from "@/config";
 
 export const getProblem = async (problemId: string, languageId: string) => {
   problemId = problemId.split(" ").join("-");

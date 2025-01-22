@@ -11,7 +11,7 @@ const Output = () => {
   const [isLoading, setIsLoading] = useState(false);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [outputResult, setOutputResult] = useState<any>(null);
-  const API_HOST = "13.234.238.166:2358";
+  const API_HOST = process.env.NEXT_PUBLIC_JUDGE_0_URI!;
   const submitCode = async () => {
     setIsLoading(true);
     const { data } = await axios.post(`http://${API_HOST}/submissions`, {

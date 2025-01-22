@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 const LiveCount = ({ Id }: { Id: string }) => {
   const [usersCount, setUsersCount] = useState(0);
   const ws = useRef<WebSocket | null>(null);
-  console.log(process.env.PRODUCTION_WEB_SOCKET!,"websocket");
+  console.log(process.env.NEXT_PUBLIC_PRODUCTION_WEB_SOCKET!,"websocket");
   useEffect(() => {
     const connectWebSocket = () => {
       ws.current = new WebSocket(`${process.env.NEXT_PUBLIC_PRODUCTION_WEB_SOCKET!}?problemId=${Id}`);

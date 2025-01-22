@@ -1,16 +1,28 @@
-import Hero from "@/components/Hero";
-import Navbar from "@/components/Navbar";
+import Assistant from "@/components/Landing/Assistant";
+import Features from "@/components/Landing/Features";
+import Footer from "@/components/Landing/Footer";
+import FrequentQuestion from "@/components/Landing/FrequentQuestion";
+import HeroSection from "@/components/Landing/Hero";
+import Navbar from "@/components/Landing/Navbar";
+import Pricing from "@/components/Landing/Pricing";
+import ProblemShowCase from "@/components/Landing/ProblemShowcase";
+import Success from "@/components/Landing/Success";
 import React from "react";
 
-const Home = () => {
+const Landing = () => {
   return (
-    <div className="bg-[#09090B] pt-[80px] w-full min-h-screen">
+    <div>
       <Navbar />
-      <div className="w-full min-h-full text-center">
-        <Hero />
-      </div>
+      <HeroSection />
+      <Features />
+      <ProblemShowCase />
+      <Assistant />
+      <Success />
+      <Pricing />
+      <FrequentQuestion />
+      <Footer />
     </div>
   );
 };
 
-export default Home;
+export default Landing;

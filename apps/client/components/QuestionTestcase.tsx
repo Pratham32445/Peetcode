@@ -4,14 +4,11 @@ import React, { useState } from "react";
 
 const QuestionTestcase = ({
   InputsTestCases,
-  outputTestCases,
 }: {
   InputsTestCases: string[];
   outputTestCases: string[];
 }) => {
   const [selectedTestCase, setSelectedTestCase] = useState(0);
-
-  console.log(outputTestCases);
 
   return (
     <div className="bg-lightBg rounded w-full h-full">
