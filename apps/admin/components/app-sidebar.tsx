@@ -14,7 +14,6 @@ import {
 } from "@/components/ui/sidebar";
 import Link from "next/link";
 import { ScrollArea } from "./ui/scroll-area";
-import Image from "next/image";
 import { FlameKindling } from "lucide-react";
 
 // This is sample data.
