@@ -11,6 +11,7 @@ import { Button } from "./ui/button";
 import Link from "next/link";
 import axios from "axios";
 
+
 const ChatWithAI = ({
   open,
   setOpen,
@@ -23,9 +24,11 @@ const ChatWithAI = ({
   const [conversation, setConversation] = useState([]);
 
   const startConversation = async () => {
-    const {data} = await axios.get(`http://localhost:3000/api/problem/${problemId}`);
-    if(data) {
-        // const system_prompt = SYSTEM_PROMPT.replace
+    const { data } = await axios.get(
+      `http://localhost:3000/api/problem/${problemId}`
+    );
+    if (data) {
+      // const system_prompt = SYSTEM_PROMPT.replace
     }
   };
 
@@ -44,7 +47,7 @@ const ChatWithAI = ({
             ) : (
               <div className="flex justify-center flex-col items-center mt-28 gap-5">
                 <Button
-                  className="bg-[#FFA116] hover:bg-[#FFA116]"
+                  className="bg-[#FFA116]  hover:bg-[#FFA116]"
                   onClick={startConversation}
                 >
                   Start Converstation

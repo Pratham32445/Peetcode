@@ -42,14 +42,16 @@ const Frontnavbar = () => {
         </div>
       </div>
       <div>
-        {session && (
-          <Image
-            src={session.data?.user?.image!}
-            width={35}
-            height={35}
-            className="rounded-full"
-            alt="profile"
-          />
+        {session.data?.user?.image && (
+          <Link href={"/user/profile"}>
+            <Image
+              src={session.data?.user?.image}
+              width={35}
+              height={35}
+              className="rounded-full"
+              alt="profile" 
+            />
+          </Link>
         )}
       </div>
     </div>
