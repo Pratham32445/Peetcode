@@ -16,16 +16,27 @@ import axios from "axios";
 const AddProblem = () => {
   const [formData, setFormData] = useState({
     title: "",
-    description: "",
+    desc: "",
     difficulty: "",
-    examples: "",
-    topics: "",
+    example: [] as string[],
+    topics: [] as string[],
     structure: "",
+    constraints: [] as string[],
+    solution: "",
+    testcases: [],
   });
 
   const createProblem = async () => {
-    const createProblem = await axios.post("http://localhost:3000/api/problem/create",{formData});
-    console.log(createProblem);
+    try {
+      console.log(formData);
+      const response = await axios.post(
+        "http://localhost:3000/api/problem/create",
+        formData
+      );
+      console.log("Problem created:", response.data);
+    } catch (error) {
+      console.error("Error creating problem:", error);
+    }
   };
 
   const handleChange = (field: string, value: string) => {
@@ -34,6 +45,18 @@ const AddProblem = () => {
       [field]: value,
     }));
   };
+
+  const handleArrayChange = (
+    field: "example" | "topics" | "constraints",
+    value: string
+  ) => {
+    setFormData((prev) => ({
+      ...prev,
+      [field]: value.split(",").map((item) => item.trim()),
+    }));
+  };
+
+  console.log(formData);
 
   return (
     <div>
@@ -47,8 +70,8 @@ const AddProblem = () => {
           />
           <Textarea
             placeholder="Problem Description"
-            value={formData.description}
-            onChange={(e) => handleChange("description", e.target.value)}
+            value={formData.desc}
+            onChange={(e) => handleChange("desc", e.target.value)}
           />
           <div>
             <Select
@@ -58,24 +81,31 @@ const AddProblem = () => {
                 <SelectValue placeholder="Difficulty" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="easy">Easy</SelectItem>
-                <SelectItem value="medium">Medium</SelectItem>
-                <SelectItem value="hard">Hard</SelectItem>
+                <SelectItem value="EASY">Easy</SelectItem>
+                <SelectItem value="MEDIUM">Medium</SelectItem>
+                <SelectItem value="HARD">Hard</SelectItem>
               </SelectContent>
             </Select>
           </div>
           <div>
             <Textarea
-              placeholder="Problem Examples"
-              value={formData.examples}
-              onChange={(e) => handleChange("examples", e.target.value)}
+              placeholder="Problem Examples (comma-separated)"
+              value={formData.example.join(", ")}
+              onChange={(e) => handleArrayChange("example", e.target.value)}
             />
           </div>
           <div>
             <Textarea
-              placeholder="Write topics by comma separated"
-              value={formData.topics}
-              onChange={(e) => handleChange("topics", e.target.value)}
+              placeholder="Write topics (comma-separated)"
+              value={formData.topics.join(", ")}
+              onChange={(e) => handleArrayChange("topics", e.target.value)}
+            />
+          </div>
+          <div>
+            <Textarea
+              placeholder="Constraints (comma-separated)"
+              value={formData.constraints.join(", ")}
+              onChange={(e) => handleArrayChange("constraints", e.target.value)}
             />
           </div>
           <div>

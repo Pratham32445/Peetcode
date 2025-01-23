@@ -15,6 +15,8 @@ import { Button } from "./ui/button";
 import axios from "axios";
 import { fetchSubmissionResult } from "@/lib/submission";
 import { MainContext } from "@/context/State";
+import ChatWithAI from "./ChatWithAi";
+
 
 const QuestionEditor = ({
   boilerPlates,
@@ -28,6 +30,7 @@ const QuestionEditor = ({
   const [loading, setLoading] = useState(true);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { setIsProblemSubmitted } = useContext(MainContext);
+  const [showAI, setShowAI] = useState(false);
   const SERVER_URI = process.env.NEXT_PUBLIC_PRODUCTION_URL!;
 
   useEffect(() => {
@@ -76,107 +79,112 @@ const QuestionEditor = ({
   }
 
   return (
-    <div className="relative w-full h-full p-2 mb-5">
-      <div className="border mb-1 flex items-center justify-between">
-        <div>
-          <Select onValueChange={setLanguage} value={language}>
-            <SelectTrigger className="w-fit">
-              <SelectValue placeholder={language} />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="cpp">Cpp</SelectItem>
-              <SelectItem value="js">Js</SelectItem>
-              <SelectItem value="ts">Ts</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-        <div className="px-3">
-          <RotateCcw width={20} height={20} />
-        </div>
-      </div>
-      <Editor
-        height="100%"
-        language={
-          MONACO_LANGUAGE_MAPPING[
-            language as keyof typeof MONACO_LANGUAGE_MAPPING
-          ]
-        }
-        theme="vs-dark"
-        value={editorState}
-        onMount={formatCode}
-        onChange={(value) => setEditorState(value || "")}
-        options={{
-          minimap: { enabled: false },
-          fontSize: 18,
-          lineNumbers: "on",
-          roundedSelection: false,
-          scrollBeyondLastLine: false,
-          readOnly: false,
-          cursorStyle: "line",
-          quickSuggestions: false,
-          suggestOnTriggerCharacters: false,
-          parameterHints: {
-            enabled: false,
-          },
-          wordBasedSuggestions: "off",
-          // Added options to hide errors and suggestions
-          renderValidationDecorations: "off",
-          snippetSuggestions: "none",
-          codeLens: false,
-          contextmenu: false,
-          colorDecorators: false,
-          suggest: {
-            showMethods: false,
-            showFunctions: false,
-            showConstructors: false,
-            showFields: false,
-            showVariables: false,
-            showClasses: false,
-            showStructs: false,
-            showInterfaces: false,
-            showModules: false,
-            showProperties: false,
-            showEvents: false,
-            showOperators: false,
-            showUnits: false,
-            showValues: false,
-            showConstants: false,
-            showEnums: false,
-            showEnumMembers: false,
-            showKeywords: false,
-            showWords: false,
-            showColors: false,
-            showFiles: false,
-            showReferences: false,
-            showFolders: false,
-            showTypeParameters: false,
-            showSnippets: false,
-          },
-        }}
-      />
-      <div className="absolute bottom-0 right-[10px] p-2">
-        {!isSubmitted ? (
-          <div className="flex items-center gap-5">
-            <Button className="px-6 bg-lightSubmit hover:bg-lightSubmit text-white">
-              Run
-            </Button>
-            <Button
-              className="bg-bgSucess px-10 py-5 hover:bg-[#26a954] text-white"
-              onClick={createSubmission}
-            >
-              Submit
-            </Button>{" "}
-          </div>
-        ) : (
+    <>
+      <div className="relative w-full h-full p-2 mb-5">
+        <div className="border mb-1 flex items-center justify-between">
           <div>
-            <Button className="bg-lightSubmit hover:bg-lightSubmit px-20 py-5">
-              <p className="text-white">Pending...</p>
-            </Button>
+            <Select onValueChange={setLanguage} value={language}>
+              <SelectTrigger className="w-fit">
+                <SelectValue placeholder={language} />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="cpp">Cpp</SelectItem>
+                <SelectItem value="js">Js</SelectItem>
+                <SelectItem value="ts">Ts</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
-        )}
+          <div className="px-3">
+            <RotateCcw width={20} height={20} />
+          </div>
+        </div>
+        <Editor
+          height="100%"
+          language={
+            MONACO_LANGUAGE_MAPPING[
+              language as keyof typeof MONACO_LANGUAGE_MAPPING
+            ]
+          }
+          theme="vs-dark"
+          value={editorState}
+          onMount={formatCode}
+          onChange={(value) => setEditorState(value || "")}
+          options={{
+            minimap: { enabled: false },
+            fontSize: 18,
+            lineNumbers: "on",
+            roundedSelection: false,
+            scrollBeyondLastLine: false,
+            readOnly: false,
+            cursorStyle: "line",
+            quickSuggestions: false,
+            suggestOnTriggerCharacters: false,
+            parameterHints: {
+              enabled: false,
+            },
+            wordBasedSuggestions: "off",
+            // Added options to hide errors and suggestions
+            renderValidationDecorations: "off",
+            snippetSuggestions: "none",
+            codeLens: false,
+            contextmenu: false,
+            colorDecorators: false,
+            suggest: {
+              showMethods: false,
+              showFunctions: false,
+              showConstructors: false,
+              showFields: false,
+              showVariables: false,
+              showClasses: false,
+              showStructs: false,
+              showInterfaces: false,
+              showModules: false,
+              showProperties: false,
+              showEvents: false,
+              showOperators: false,
+              showUnits: false,
+              showValues: false,
+              showConstants: false,
+              showEnums: false,
+              showEnumMembers: false,
+              showKeywords: false,
+              showWords: false,
+              showColors: false,
+              showFiles: false,
+              showReferences: false,
+              showFolders: false,
+              showTypeParameters: false,
+              showSnippets: false,
+            },
+          }}
+        />
+        <div className="absolute bottom-0 right-[10px] p-2">
+          {!isSubmitted ? (
+            <div className="flex items-center gap-5">
+              <Button onClick={() => setShowAI(!showAI)}>Chat with AI</Button>
+              <Button className="px-6 bg-lightSubmit hover:bg-lightSubmit text-white">
+                Run
+              </Button>
+              <Button
+                className="bg-bgSucess px-10 py-5 hover:bg-[#26a954] text-white"
+                onClick={createSubmission}
+              >
+                Submit
+              </Button>{" "}
+            </div>
+          ) : (
+            <div>
+              <Button className="bg-lightSubmit hover:bg-lightSubmit px-20 py-5">
+                <p className="text-white">Pending...</p>
+              </Button>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+      <ChatWithAI open={showAI} setOpen={setShowAI} />
+    </>
   );
 };
 
 export default QuestionEditor;
+
