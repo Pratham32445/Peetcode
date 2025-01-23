@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
-const QuestionSolutions = () => {
-  return (
-    <div>QuestionSolutions</div>
-  )
-}
+const QuestionSolutions = ({ Id }: { Id: string }) => {
+  return <div></div>;
+};
 
-export default QuestionSolutions
+export default QuestionSolutions;

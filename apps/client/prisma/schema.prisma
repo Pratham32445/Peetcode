@@ -13,7 +13,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model User {
   Id             String           @id @default(uuid())
   userId         String?
@@ -80,6 +79,7 @@ model Question {
   discussion          ProblemDiscussion? @relation(fields: [problemdiscussionId], references: [Id])
   Submissions         Submission[]
   UserOnJunction      UserOnJunction[]
+  editorial           String?
 }
 
 model ProblemDiscussion {
@@ -126,6 +126,7 @@ model Submission {
   expectedInput       String[]
   expectedOutput      String?
   userOutput          String?
+  createdAt                DateTime         @default(now())
 }
 
 model TestCase {
