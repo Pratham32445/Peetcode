@@ -181,7 +181,7 @@ const QuestionEditor = ({
           )}
         </div>
       </div>
-      <ChatWithAI open={showAI} setOpen={setShowAI} />
+      <ChatWithAI problemId={problemId} open={showAI} setOpen={setShowAI} />
     </>
   );
 };
