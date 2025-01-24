@@ -1,8 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { usePathname } from "next/navigation";
-import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 
 const userProfileSidebar = [
   {
@@ -25,18 +24,27 @@ const userProfileSidebar = [
 
 const Sidebar = () => {
   const pathname = usePathname();
+  const router = useRouter();
   const [setPath, setSetPath] = useState(
     pathname.split("/")[pathname.split("/").length - 1]
   );
+  const changePath = (href : string) => {
+    setSetPath(href);
+    router.push(href);
+  }
   return (
     <div className="w-full p-1 bg-[#1E1E1E] min-h-full rounded-lg">
       {userProfileSidebar.map(({ title, href }, idx) => (
         <div
-          className={`px-10 my-2 py-5 cursor-pointer ${title.toLowerCase() == setPath && "bg-[#454545]"} hover:bg-[#454545] rounded`}
+          className="px-10 my-2 py-5 cursor-pointer  hover:bg-[#454545] rounded"
+          style={{
+            backgroundColor:
+              title.toLowerCase() == setPath ? "#454545" : "transparent",
+          }}
           key={idx}
-          onClick={() => setSetPath(title)}
+          onClick={() => changePath(href)}
         >
-          <Link href={href}>{title}</Link>
+          <p>{title}</p>
         </div>
       ))}
     </div>

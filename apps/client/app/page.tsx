@@ -1,4 +1,5 @@
 import Assistant from "@/components/Landing/Assistant";
+import { ContactForm } from "@/components/Landing/ContactForm";
 import Features from "@/components/Landing/Features";
 import Footer from "@/components/Landing/Footer";
 import FrequentQuestion from "@/components/Landing/FrequentQuestion";
@@ -20,6 +21,7 @@ const Landing = () => {
       <Success />
       <Pricing />
       <FrequentQuestion />
+      <ContactForm/>
       <Footer />
     </div>
   );
