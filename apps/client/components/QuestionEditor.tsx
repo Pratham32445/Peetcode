@@ -17,7 +17,6 @@ import { fetchSubmissionResult } from "@/lib/submission";
 import { MainContext } from "@/context/State";
 import ChatWithAI from "./ChatWithAi";
 
-
 const QuestionEditor = ({
   boilerPlates,
   problemId,
@@ -123,7 +122,6 @@ const QuestionEditor = ({
               enabled: false,
             },
             wordBasedSuggestions: "off",
-            // Added options to hide errors and suggestions
             renderValidationDecorations: "off",
             snippetSuggestions: "none",
             codeLens: false,
@@ -162,9 +160,6 @@ const QuestionEditor = ({
           {!isSubmitted ? (
             <div className="flex items-center gap-5">
               <Button onClick={() => setShowAI(!showAI)}>Chat with AI</Button>
-              <Button className="px-6 bg-lightSubmit hover:bg-lightSubmit text-white">
-                Run
-              </Button>
               <Button
                 className="bg-bgSucess px-10 py-5 hover:bg-[#26a954] text-white"
                 onClick={createSubmission}
@@ -181,10 +176,14 @@ const QuestionEditor = ({
           )}
         </div>
       </div>
-      <ChatWithAI problemId={problemId} open={showAI} setOpen={setShowAI} />
+      <ChatWithAI
+        editorState={editorState}
+        problemId={problemId}
+        open={showAI}
+        setOpen={setShowAI}
+      />
     </>
   );
 };
 
 export default QuestionEditor;
-

@@ -4,8 +4,6 @@ import { getServerSession } from "next-auth";
 import React from "react";
 import { ScrollArea } from "./ui/scroll-area";
 
-export const dynamic = "force-dynamic";
-
 const getSubmissions = async (email: string, problemId: string) => {
   const user = await client.user.findFirst({ where: { email } });
   const submission = await client.submission.findMany({

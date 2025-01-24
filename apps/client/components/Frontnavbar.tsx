@@ -8,10 +8,10 @@ import Image from "next/image";
 
 const navbarItems = [
   { name: "Problems", href: "/problems" },
-  { name: "Explore", href: "/explore" },
   { name: "Contest", href: "/contest" },
   { name: "Discuss", href: "/discuss" },
   { name: "Interview", href: "/interview" },
+  { name: "About Us", href: "/about-us" },
 ];
 
 const Frontnavbar = () => {
