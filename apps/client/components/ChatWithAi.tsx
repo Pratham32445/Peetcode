@@ -36,6 +36,7 @@ const ChatWithAI = ({
   const [startTalk, setStartTalk] = useState(false);
   const [userprompt, setUserprompt] = useState("");
 
+
   const startConversation = async () => {
     setStartTalk(true);
     try {
@@ -77,7 +78,6 @@ const ChatWithAI = ({
         responseMimeType: "text/plain",
       };
 
-      // Ensure history starts with a user role
       const formattedHistory =
         history.length > 0 && history[0].role === "user"
           ? history.map((item) => ({
@@ -109,14 +109,12 @@ const ChatWithAI = ({
   const handleSend = async () => {
     if (userprompt.trim() === "") return;
 
-    // Ensure the first entry in conversation has the 'user' role
     const newConversation: Content[] = conversation.length
       ? [...conversation, { role: "user", parts: [userprompt] }]
       : [{ role: "user", parts: [userprompt] }];
 
     setConversation(newConversation);
 
-    // Pass the updated conversation as history
     await callAI(userprompt, newConversation);
     setUserprompt("");
   };
@@ -133,11 +131,11 @@ const ChatWithAI = ({
         </SheetHeader>
         <div className="p-4">
           {conversation.length > 0 ? (
-            <ScrollArea className="conversation-box h-[400px]">
+            <ScrollArea className="conversation-box h-[400px] p-4">
               {conversation.map((line, index) => (
                 <div
                   key={`${line.role}-${index}`}
-                  className="bg-neutral-600 rounded p-4"
+                  className={`${line.role == "AI" ? "bg-neutral-600 ": "bg-blue-600"} rounded p-4 my-2`}
                 >
                   <p>{line.parts[0]}</p>
                 </div>
