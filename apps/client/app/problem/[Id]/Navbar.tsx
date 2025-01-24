@@ -12,9 +12,9 @@ const Navbar = async () => {
   return (
     <div className="p-3 flex items-center justify-between">
       <div className="px-5">
-        <div className="flex-1 flex items-center gap-3">
+        <Link href={"/problems"} className="flex-1 flex items-center gap-3">
           <FlameKindling color="#FFA116" width={30} height={30} />
-        </div>
+        </Link>
       </div>
       <div className="flex items-center gap-5">
         <Link href={"/user/profile"}>

@@ -8,6 +8,7 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
+import LiveCount from "@/components/LiveCount";
 
 const Question = async ({ questionId }: { questionId: string }) => {
   const res = await getProblemCodeAndTest(questionId);
@@ -17,8 +18,9 @@ const Question = async ({ questionId }: { questionId: string }) => {
     <div className="w-full h-full flex">
       <ResizablePanelGroup direction="horizontal" className="flex-grow h-full">
         <ResizablePanel defaultSize={40}>
-          <div className="flex h-full items-center px-4 justify-center">
+          <div className="flex relative h-full items-center px-4 justify-center">
             <QuestionTab questionId={questionId} />
+            <LiveCount Id={questionId} />
           </div>
         </ResizablePanel>
         <ResizableHandle />

@@ -42,7 +42,7 @@ const LiveCount = ({ Id }: { Id: string }) => {
   }, [Id]);
 
   return (
-    <div className="absolute bottom-[-10px] right-0">
+    <div className="absolute bottom-10 right-[30px]">
       <div className="gap-2 p-2 flex items-center">
         <div className="w-2 h-2 bg-[#2CBB5D] rounded-full"></div>
         <p>{usersCount} Online</p>

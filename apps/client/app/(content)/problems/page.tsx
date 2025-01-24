@@ -95,7 +95,7 @@ const Problems = async () => {
         </Table>
       </div>
       <div>
-        <SolvedProblem/>
+        <SolvedProblem />
       </div>
     </div>
   );

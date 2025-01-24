@@ -18,10 +18,10 @@ const Navbar = async () => {
     <header className="fixed inset-x-0 top-0 z-50 hidden bg-zinc-950/80 backdrop-blur transition will-change-auto md:block">
       <div className="mx-auto max-w-screen-xl px-6 md:px-10">
         <div className="flex items-center border-b border-b-white/5 py-5">
-          <div className="flex-1 flex items-center gap-3">
+          <Link href="/problems" className="flex-1 flex items-center gap-3">
             <FlameKindling color="#FFA116" />
             <p className="text-white text-2xl">PeetCode</p>
-          </div>
+          </Link>
           <div className="flex-1">
             <div className="flex items-center gap-10 justify-center">
               {NavabarItems.map(({ name, href }, idx) => (

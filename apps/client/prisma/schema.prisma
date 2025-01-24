@@ -126,7 +126,7 @@ model Submission {
   expectedInput       String[]
   expectedOutput      String?
   userOutput          String?
-  createdAt                DateTime         @default(now())
+  createdAt           DateTime         @default(now())
 }
 
 model TestCase {
