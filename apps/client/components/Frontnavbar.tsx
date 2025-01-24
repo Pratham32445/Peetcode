@@ -8,8 +8,8 @@ import Image from "next/image";
 
 const navbarItems = [
   { name: "Problems", href: "/problems" },
-  { name: "Contest", href: "/contest" },
-  { name: "Discuss", href: "/discuss" },
+  { name: "Contest", href: "/contests" },
+  { name: "Discuss", href: "/discussion" },
   { name: "Interview", href: "/interview" },
   { name: "About Us", href: "/about-us" },
 ];

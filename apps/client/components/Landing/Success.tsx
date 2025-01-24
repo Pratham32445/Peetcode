@@ -96,7 +96,9 @@ function Success() {
     <div className="mt-[100px]">
       <div className="flex flex-col items-center">
         <h1 className="text-4xl">Success Stories</h1>
-        <p className="mt-[20px]">Join thousands of developers who landed their dream jobs</p>
+        <p className="mt-[20px]">
+          Join thousands of developers who landed their dream jobs
+        </p>
       </div>
       <div className="relative flex h-[500px] w-full flex-col items-center justify-center overflow-hidden rounded-lg  bg-background md:shadow-xl">
         <Marquee pauseOnHover className="[--duration:20s]">

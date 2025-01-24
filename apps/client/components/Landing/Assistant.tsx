@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 const features = [
@@ -22,10 +23,12 @@ const Assistant = () => {
     <div className="p-10 flex justify-center gap-5 mt-[100px]">
       <div>
         <div>
-          <h1 className="text-5xl">Stuck on a Problem? <br/> AI Assistant Is Here to Help</h1>
+          <h1 className="text-5xl">
+            Stuck on a Problem? <br /> AI Assistant Is Here to Help
+          </h1>
           <p className="my-2 text-lg">
             Get intelligent hints and explanations without revealing the
-            <br/>
+            <br />
             complete solution. Our AI assistant helps you learn and grow.
           </p>
         </div>
@@ -39,7 +42,14 @@ const Assistant = () => {
         </div>
       </div>
       <div>
-        <div className="bg-[#171717] w-[400px] h-[400px]"></div>
+        <div className="bg-[#171717] w-[400px] h-[400px] relative">
+          <Image
+            src="/assistant.jpg"
+            alt="Assistant"
+            layout="fill"
+            objectFit="cover"
+          />
+        </div>
       </div>
     </div>
   );

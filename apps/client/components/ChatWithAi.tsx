@@ -36,7 +36,6 @@ const ChatWithAI = ({
   const [startTalk, setStartTalk] = useState(false);
   const [userprompt, setUserprompt] = useState("");
 
-
   const startConversation = async () => {
     setStartTalk(true);
     try {
@@ -135,7 +134,7 @@ const ChatWithAI = ({
               {conversation.map((line, index) => (
                 <div
                   key={`${line.role}-${index}`}
-                  className={`${line.role == "AI" ? "bg-neutral-600 ": "bg-blue-600"} rounded p-4 my-2`}
+                  className={`${line.role == "AI" ? "bg-neutral-600 " : "bg-blue-600"} rounded p-4 my-2`}
                 >
                   <p>{line.parts[0]}</p>
                 </div>
