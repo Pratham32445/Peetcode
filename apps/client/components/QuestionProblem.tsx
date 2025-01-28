@@ -11,19 +11,18 @@ const Difficulty = {
 
 const desc = `# 
 
-Given an integer array \`nums\` and an integer \`k\`, find **three non-overlapping subarrays** of length \`k\` with the **maximum sum** and return them.
+Given an integer array \`nums\` and an integer \`n\`, find **The Max Element in the array** and return the element 
 
-- Return the result as a **list of indices** representing the starting position of each interval (0-indexed).
-- If there are multiple answers, return the **lexicographically smallest** one.
+- Return the integer if there is not any max then return -1 in that case.
+- If there are multiple numbers, then return return only one number.
 
-This problem can be broken into several key steps:
-1. Identify all subarrays of length \`k\`.
-2. Calculate the sum of each subarray.
-3. Select three subarrays such that:
-   - They do not overlap.
-   - Their combined sum is the maximum.
-   - If there are multiple solutions, select the one that is lexicographically smallest.
-
+Examples
+nums = [1,2,4,-1,-4] in this case the result will be 4 \n
+nums = [1,2,2,-1,-4] in this case the result will be 2 \n
+nums = [1,2,5,-1,-4] in this case the result will be 5 \n
+nums = [1,2,9,-1,-4] in this case the result will be 9 \n
+nums = [0,2,4,-1,-4] in this case the result will be 4 \n
+nums = [] in this case because the size of the vector is 0 then the answer will be -1
 ---`;
 
 const QuestionProblem = ({ problem }: { problem: Problem }) => {
@@ -85,4 +84,3 @@ const QuestionProblem = ({ problem }: { problem: Problem }) => {
 };
 
 export default QuestionProblem;
-  

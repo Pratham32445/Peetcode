@@ -3,7 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   /* config options here */
   output: "standalone",
-  reactStrictMode: true,
+  reactStrictMode: false,
   staticPageGenerationTimeout: 1000,
   runtime: "nodejs",
   cache: "no-store",

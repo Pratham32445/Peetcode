@@ -52,7 +52,7 @@ export default function HeroSection() {
             </div>
           </div> 
           <h1 className="z-10 whitespace-pre-wrap text-center text-7xl font-medium tracking-tighter text-black dark:text-white my-4">
-            Master LeetCode Premium <br /> Problems Completely Free
+            Master L**tCode Premium <br /> Problems Completely Free
           </h1>
           <p className="my-4 text-lg text-center">
             Practice premium coding problems with integrated AI assistance.{" "}

@@ -1,17 +1,16 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include <algorithm>  // For algorithms like sort(), etc.
-#include <cmath>      // For mathematical functions like sqrt(), pow(), etc.
-#include <limits>     // For numeric limits like INT_MAX, etc.
+#include <algorithm>  
+#include <cmath>     
+#include <climits>
+#include <limits>    
 using namespace std;
 
    ## CODE_HERE ##
   
   int main() {
-      // Declare input variables
-      vector<int> nums;
-  
+      // Declare input variables  
       // Read inputs
   int size_nums;
       cin >> size_nums;

@@ -20,9 +20,9 @@ const Frontnavbar = () => {
   return (
     <div className="bg-[#282828] flex items-center justify-between px-4">
       <div className="flex items-center">
-        <div className="p-4">
+        <Link href={"/"} className="p-4">
           <FlameKindling color="#FFA116" width={30} height={30} />
-        </div>
+        </Link>
         <div className="flex mx-10 gap-10">
           {navbarItems.map(({ name, href }, idx) => (
             <div
