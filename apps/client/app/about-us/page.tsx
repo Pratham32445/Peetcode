@@ -26,7 +26,7 @@ export default function AboutPage() {
             About <span className="text-primary">Us</span>
           </h1>
           <p className="mt-6 max-w-2xl mx-auto text-lg text-muted-foreground">
-            we're on a mission to make coding education free in the world
+            we are on a mission to make coding education free in the world
           </p>
         </div>
       </section>
@@ -37,7 +37,7 @@ export default function AboutPage() {
             <div>
               <h2 className="text-3xl font-bold mb-6">Our Mission</h2>
               <p className="text-muted-foreground mb-6">
-                "We are on a mission to teach those who can't afford luxury
+                We are on a mission to teach those who cant afford luxury
                 courses and want to achieve something big, by providing them
                 with the tools, knowledge, and resources they need to succeed.
                 With the power of AI support, we are continuously enhancing our
@@ -49,14 +49,14 @@ export default function AboutPage() {
                 empowering individuals to reach their full potential. Our goal
                 is to make education accessible to everyone and help bridge the
                 gap in the world of learning, ensuring that anyone with the
-                ambition to succeed can do so without barriers."
+                ambition to succeed can do so without barriers
               </p>
               <div className="flex items-center gap-4">
                 <Target className="h-12 w-12 text-primary" />
                 <div>
                   <h3 className="font-semibold">Forward Thinking</h3>
                   <p className="text-sm text-muted-foreground">
-                    Always looking ahead to what's next
+                    Always looking ahead to whats next
                   </p>
                 </div>
               </div>

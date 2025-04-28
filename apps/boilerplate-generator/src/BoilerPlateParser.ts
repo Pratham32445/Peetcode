@@ -6,6 +6,8 @@ export class BoilerPlateParser {
   Inputs: { type: string; name: string }[] = [];
   Outputs: { type: string; name: string }[] = [];
   parse(structure: string) {
+
+    
     console.log(structure);
     const lines = structure.split("\n").map((line) => line.trim());
 

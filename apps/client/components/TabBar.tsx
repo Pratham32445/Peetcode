@@ -32,7 +32,7 @@ const TabBar = ({ problem }: { problem: any }) => {
           <QuestionEditorial editorial={problem.editorial} />
         </TabsContent>
         <TabsContent value="solutions">
-          <QuestionSolutions Id={problem.Id} />
+          <QuestionSolutions/>
         </TabsContent>
         <TabsContent value="submissions">
           <QuestionSubmissions Id={problem.Id} />

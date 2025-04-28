@@ -9,7 +9,6 @@ export class ProblemManager {
     if (!this.Problem.has(problemId)) this.Problem.set(problemId, []);
     let users = this.Problem.get(problemId) ?? [];
     const isUserPresent = users?.find((user) => user == ws);
-    console.log(isUserPresent);
     if (!isUserPresent) {
       users?.push(ws);
       this.Problem.set(problemId, users);

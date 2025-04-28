@@ -33,13 +33,10 @@ const QuestionSubmissions = async ({ Id }: { Id: string }) => {
       style={{ height: "550px" }}
     >
       {submissions.length > 0 ? (
-        submissions.reverse().map(({ Id, status, createdAt }) => (
+        submissions.reverse().map(({ Id, status }) => (
           <div key={Id} className="p-2 hover:bg-neutral-700 cursor-pointer">
             <div>
               <p className={`${getColor(status)}`}>{status}</p>
-              <p className="text-sm text-neutral-500">
-                {new Date(createdAt).toLocaleDateString()}
-              </p>
             </div>
             <div></div>
           </div>

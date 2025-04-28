@@ -1,6 +1,6 @@
 import React from "react";
 
-const QuestionSolutions = ({ Id }: { Id: string }) => {
+const QuestionSolutions = () => {
   return (
     <div>
       <div className="flex min-h-full h-[50vh] justify-center items-center">
